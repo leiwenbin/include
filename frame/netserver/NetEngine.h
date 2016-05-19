@@ -110,7 +110,7 @@ namespace mdf {
         void* RemoteCall NetMonitorTask(void*);
 
         //响应连接事件,sock为新连接的套接字
-        bool OnConnect(int sock, SVR_CONNECT* pSvr = NULL);
+        bool OnConnect(int sock, int listenSock, SVR_CONNECT* pSvr = NULL);
 
         void* RemoteCall ConnectWorker(NetConnect* pConnect); //业务层处理连接
         //响应关闭事件，sock为关闭的套接字
