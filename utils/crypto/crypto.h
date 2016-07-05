@@ -37,34 +37,38 @@ public:
 
     ~Crypto();
 
-    int rsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, unsigned char** ek, size_t* ekl, unsigned char** iv, size_t* ivl);
+    int InitRsa();
 
-    int aesEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
+    int InitAes();
 
-    int rsaDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char* ek, size_t ekl, unsigned char* iv, size_t ivl, unsigned char** decMsg);
+    int RsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, unsigned char** ek, size_t* ekl, unsigned char** iv, size_t* ivl);
 
-    int aesDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
+    int AesEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
-    int writeKeyToFile(FILE* fd, int key);
+    int RsaDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char* ek, size_t ekl, unsigned char* iv, size_t ivl, unsigned char** decMsg);
 
-    int getRemotePubKey(unsigned char** pubKey);
+    int AesDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
 
-    int setRemotePubKey(unsigned char* pubKey, size_t pubKeyLen);
+    int WriteKeyToFile(FILE* fd, int key);
 
-    int getLocalPubKey(unsigned char** pubKey);
+    int GetRemotePubKey(unsigned char** pubKey);
 
-    int getLocalPriKey(unsigned char** priKey);
+    int SetRemotePubKey(unsigned char* pubKey, size_t pubKeyLen);
 
-    int getAESKey(unsigned char** aesKey);
+    int GetLocalPubKey(unsigned char** pubKey);
 
-    int setAESKey(unsigned char* aesKey, size_t aesKeyLen);
+    int GetLocalPriKey(unsigned char** priKey);
 
-    int getAESIv(unsigned char** aesIv);
+    int GetAESKey(unsigned char** aesKey);
 
-    int setAESIv(unsigned char* aesIv, size_t aesIvLen);
+    int SetAESKey(unsigned char* aesKey, size_t aesKeyLen);
+
+    int GetAESIv(unsigned char** aesIv);
+
+    int SetAESIv(unsigned char* aesIv, size_t aesIvLen);
 
 private:
-    static EVP_PKEY* localKeypair;
+    EVP_PKEY* localKeypair;
     EVP_PKEY* remotePubKey;
 
     EVP_CIPHER_CTX* rsaEncryptCtx;
@@ -76,9 +80,7 @@ private:
     unsigned char* aesKey;
     unsigned char* aesIV;
 
-    int init();
-
-    int genTestClientKey();
+    int GenTestClientKey();
 };
 
 #endif

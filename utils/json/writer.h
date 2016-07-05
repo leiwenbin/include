@@ -187,6 +187,8 @@ namespace Json {
 
     std::string JSON_API valueToString(UInt value);
 
+    std::string JSON_API valueToString(Int64 value);
+
     std::string JSON_API valueToString(double value);
 
     std::string JSON_API valueToString(bool value);

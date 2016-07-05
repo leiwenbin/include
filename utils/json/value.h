@@ -26,6 +26,7 @@ namespace Json {
         nullValue = 0, ///< 'null' value
         intValue,      ///< signed integer value
         uintValue,     ///< unsigned integer value
+        int64Value,     //  add by lei
         realValue,     ///< double value
         stringValue,   ///< UTF-8 string value
         booleanValue,  ///< bool value
@@ -117,12 +118,15 @@ namespace Json {
         typedef ValueConstIterator const_iterator;
         typedef Json::UInt UInt;
         typedef Json::Int Int;
+        typedef Json::Int64 Int64;
         typedef UInt ArrayIndex;
 
         static const Value null;
         static const Int minInt;
         static const Int maxInt;
         static const UInt maxUInt;
+        static const Int64 maxInt64;
+        static const Int64 minInt64;
 
     private:
 #ifndef JSONCPP_DOC_EXCLUDE_IMPLEMENTATION
@@ -192,6 +196,8 @@ namespace Json {
 
         Value(UInt value);
 
+        Value(Int64 value);
+
         Value(double value);
 
         Value(const char* value);
@@ -257,6 +263,8 @@ namespace Json {
 
         UInt asUInt() const;
 
+        Int64 asInt64() const;
+
         double asDouble() const;
 
         float asFloat() const;
@@ -270,6 +278,8 @@ namespace Json {
         bool isInt() const;
 
         bool isUInt() const;
+
+        bool isInt64() const;
 
         bool isIntegral() const;
 
@@ -478,6 +488,8 @@ namespace Json {
         union ValueHolder {
             Int int_;
             UInt uint_;
+            Int64 int64_;
+            float float_;
             double real_;
             bool bool_;
             char* string_;
