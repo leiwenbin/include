@@ -179,7 +179,8 @@ public:
     /* ECHO        */  bool echo(const RedisDBIdx& dbi, const std::string& str, std::string& value);
     /* PING        */  /* nonsupport */
     /* QUIT        */  void quit();
-    /* SELECT      */  /* nonsupport */
+
+    /* SELECT      */  bool select(const RedisDBIdx& dbi, int pos);
 
     //                 Commands operating on std::string values
     /* APPEND      */  bool append(const RedisDBIdx& dbi, const std::string& key, const std::string& value);
@@ -226,7 +227,6 @@ public:
 
     /* STRLEN      */  bool strlen(const RedisDBIdx& dbi, const std::string& key, int& length);
 
-
     /* DEL          */  bool del(const RedisDBIdx& dbi, const std::string& key);
 
     bool del(const DBIArray& dbi, const KEYS& vkey, int64_t& count);
@@ -236,7 +236,9 @@ public:
     /* EXPIRE       */  bool expire(const RedisDBIdx& dbi, const std::string& key, unsigned int second);
 
     /* EXPIREAT     */  bool expireat(const RedisDBIdx& dbi, const std::string& key, unsigned int timestamp);
-    /* KEYS         */
+
+    /* KEYS         */  bool keys(const RedisDBIdx& dbi, const string& key, KEYS& keys);
+
     /* MIGRATE      */
     /* MOVE         */
     /* OBJECT       */
