@@ -96,10 +96,10 @@ namespace mdf {
         //设置连接已被使用
         void SetUsed();
 
-        bool IsInGroups(int* groups, int count); //属于某些分组
+        bool IsInGroups(std::vector<std::string>* groups); //属于某些分组
         bool IsServer(); //主机是一个服务
-        void InGroup(int groupID); //放入某分组，同一个主机可多次调用该方法，放入多个分组，非线程安全
-        void OutGroup(int groupID); //从某分组删除，非线程安全
+        void InGroup(std::string& groupID); //放入某分组，同一个主机可多次调用该方法，放入多个分组，非线程安全
+        void OutGroup(std::string& groupID); //从某分组删除，非线程安全
         void Release();
 
         /*
@@ -121,8 +121,14 @@ namespace mdf {
         //设置服务信息
         void SetSvrInfo(void* pData);
 
-        //取服务信息
+        //获取服务信息
         void* GetSvrInfo();
+
+        //设置空连接
+        void SetIdleState();
+
+        //获取空连接状态
+        bool GetIdleState();
 
     private:
         int m_useCount; //访问计数
@@ -146,12 +152,13 @@ namespace mdf {
         time_t m_tCreateTime; //连接创建的时间
         bool m_bUnused; //未使用的连接
         bool m_bIsServer; //主机类型服务器
-        std::map<int, int> m_groups; //所属分组
+        std::map<std::string, int> m_groups; //所属分组
         MemoryPool* m_pMemoryPool;
         HostData* m_pHostData; //主机数据
         mdf::Mutex m_mutexData; //主机数据锁
         bool m_autoFreeData;
         void* m_pSvrInfo; //服务信息，当NetConnect代表一个服务器时有效
+        bool m_IdleState; //空连接状态
 
     };
 

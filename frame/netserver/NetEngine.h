@@ -73,7 +73,7 @@ namespace mdf {
         ConnectList m_connectList;
         Mutex m_connectsMutex; //连接列表访问控制
         int m_nHeartTime; //心跳间隔(S)
-        int m_nFreeTime; //防空连接间隔(S)
+        int m_nIdleTime; //防空连接间隔(S)
         Thread m_mainThread;
         NetEventMonitor* m_pNetMonitor;
         ThreadPool m_ioThreads; //io线程池
@@ -134,7 +134,7 @@ namespace mdf {
         virtual connectState SendData(NetConnect* pConnect, unsigned short uSize); //发送数据
         virtual int ListenPort(int port); //监听一个端口,返回创建的套接字
         //向某组连接广播消息(业务层接口)
-        void BroadcastMsg(int* recvGroupIDs, int recvCount, char* msg, unsigned int msgsize, int* filterGroupIDs, int filterCount);
+        void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs);
 
         bool SendMsg(int64 hostID, char* msg, unsigned int msgsize); //向某主机发送消息(业务层接口)
 
@@ -187,7 +187,7 @@ namespace mdf {
         void SetHeartTime(int nSecond);
 
         //设置防空连接时间,只有设置了心跳时间才有效
-        void SetFreeTime(int nSecond);
+        void SetIdleTime(int nSecond);
 
         //设置网络IO线程数量
         void SetIOThreadCount(int nCount);

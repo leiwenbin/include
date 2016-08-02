@@ -173,8 +173,8 @@ namespace mdf {
 
         void Close(); //关闭连接
         bool IsServer(); //主机是一个服务
-        void InGroup(int groupID); //放入某分组，同一个主机可多次调用该方法，放入多个分组
-        void OutGroup(int groupID); //从某分组删除
+        void InGroup(std::string& groupID); //放入某分组，同一个主机可多次调用该方法，放入多个分组
+        void OutGroup(std::string& groupID); //从某分组删除
         /*
          主机地址
          如果你在NetServer希望得到对方地址，应该调用本方法，而不是GetServerAddress
@@ -199,6 +199,9 @@ namespace mdf {
 
         //获取连接创建时间
         time_t GetConnectCreateTime();
+
+        //获取空连接状态
+        bool GetIdleState();
 
     private:
         NetConnect* m_pConnect; //连接对象指针,调用NetConnect的业务层接口，屏蔽NetConnect的通信层接口

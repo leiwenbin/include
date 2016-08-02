@@ -123,7 +123,7 @@ namespace mdf {
         void SetHeartTime(int nSecond);
 
         //设置防空连接时间,最小10s，不设置则，或设置小于等于0，服务器不检查空连接
-        void SetFreeTime(int nSecond);
+        void SetIdleTime(int nSecond);
 
         //设置网络IO线程数量，建设设置为CPU数量的1~2倍
         void SetIOThreadCount(int nCount);
@@ -185,7 +185,7 @@ namespace mdf {
          用户也可以不理会该方法，自己创建管理分组
 
          */
-        void BroadcastMsg(int* recvGroupIDs, int recvCount, char* msg, unsigned int msgsize, int* filterGroupIDs, int filterCount);
+        void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs);
 
         /*
          向某主机发送消息
