@@ -11,7 +11,7 @@
 #ifndef CRYPTO_H
 #define CRYPTO_H
 
-#define RSA_KEYLEN 2048
+#define RSA_KEYLEN 4096
 #define AES_KEYLEN 256
 #define AES_ROUNDS 6
 
@@ -25,8 +25,11 @@
 #define KEY_SERVER_PRI 0
 #define KEY_SERVER_PUB 1
 #define KEY_CLIENT_PUB 2
-#define KEY_AES        3
-#define KEY_AES_IV     4
+#define KEY_CLIENT_PRI 3
+#define KEY_LOCALE_PUB 4
+#define KEY_LOCALE_PRI 5
+#define KEY_AES        6
+#define KEY_AES_IV     7
 
 class Crypto {
 
@@ -55,9 +58,17 @@ public:
 
     int SetRemotePubKey(unsigned char* pubKey, size_t pubKeyLen);
 
+    int GetRemotePriKey(unsigned char** priKey);
+
+    int SetRemotePriKey(unsigned char* priKey, size_t priKeyLen);
+
     int GetLocalPubKey(unsigned char** pubKey);
 
+    int SetLocalPubKey(unsigned char* pubKey, size_t pubKeyLen);
+
     int GetLocalPriKey(unsigned char** priKey);
+
+    int SetLocalPriKey(unsigned char* priKey, size_t priKeyLen);
 
     int GetAESKey(unsigned char** aesKey);
 
@@ -67,9 +78,17 @@ public:
 
     int SetAESIv(unsigned char* aesIv, size_t aesIvLen);
 
+    int GenTestClientKey();
+
+    int GenTestServerKey();
+
+    int RsaEncryptNew(unsigned char* pubKey, size_t pubKeyLen, const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
+
+    int RsaDecryptNew(unsigned char* priKey, size_t priKeyLen, const unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
+
 private:
     EVP_PKEY* localKeypair;
-    EVP_PKEY* remotePubKey;
+    EVP_PKEY* remoteKeypair;
 
     EVP_CIPHER_CTX* rsaEncryptCtx;
     EVP_CIPHER_CTX* aesEncryptCtx;
@@ -80,7 +99,8 @@ private:
     unsigned char* aesKey;
     unsigned char* aesIV;
 
-    int GenTestClientKey();
+    RSA* rsaLocalePubKey;
+    RSA* rsaLocalePriKey;
 };
 
 #endif

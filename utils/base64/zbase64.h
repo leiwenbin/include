@@ -1,6 +1,8 @@
 #ifndef ZBASE64_H_
 #define ZBASE64_H_
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
 
 using namespace std;
