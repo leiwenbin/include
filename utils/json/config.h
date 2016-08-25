@@ -153,8 +153,8 @@ namespace Json {
     typedef __int64 Int64;
     typedef unsigned __int64 UInt64;
 #else                 // if defined(_MSC_VER) // Other platforms, use long long
-    typedef int64_t Int64;
-    typedef uint64_t UInt64;
+    typedef long long Int64;
+    typedef unsigned long long UInt64;
 
 #endif // if defined(_MSC_VER)
     typedef Int64 LargestInt;
