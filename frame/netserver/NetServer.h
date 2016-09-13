@@ -119,6 +119,9 @@ namespace mdf {
         //设置单个服务器进程可能承载的平均连接数，默认5000
         void SetAverageConnectCount(int count);
 
+        //设置单个服务器进程可能承载的最大连接数，默认10000
+        void SetMaxConnectCount(int count);
+
         //设置心跳时间,最小10s，不设置则，或设置小于等于0，服务器不检查心跳
         void SetHeartTime(int nSecond);
 
@@ -186,6 +189,9 @@ namespace mdf {
 
          */
         void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs);
+
+        //返回发送失败列表的广播消息接口
+        void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs, std::vector<int64>* failedList);
 
         /*
          向某主机发送消息

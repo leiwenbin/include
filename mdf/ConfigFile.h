@@ -81,11 +81,11 @@ namespace mdf {
         //设置注释，不分windows linux，一律使用\n作为换行符
         void SetDescription(const char* description);
 
+        CFGItem();
+
         virtual ~CFGItem();
 
     private:
-        CFGItem();
-
         std::string m_value;
         std::string m_description;
         int m_index;
@@ -98,6 +98,8 @@ namespace mdf {
         friend class ConfigFile;
 
     public:
+        CFGSection();
+
         CFGSection(const char* name, int index);
 
         ~CFGSection();
@@ -133,8 +135,8 @@ namespace mdf {
         //读或写配置值
         CFGSection& operator[](std::string name);
 
-        //读取配置,只能成功读取1次,一旦读取成功,就不能再读取,再调用都将返回false
-        bool ReadConfig(const char* fileName);
+        //读取配置,force为false时,只能成功读取1次,一旦读取成功,就不能再读取,再调用都将返回false
+        bool ReadConfig(const char* fileName, bool force = false);
 
         bool Save();
 

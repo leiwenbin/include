@@ -62,6 +62,7 @@ namespace mdf {
         std::string m_startError; //启动失败原因
         MemoryPool* m_pConnectPool; //NetConnect对象池
         int m_averageConnectCount; //平均连接数
+        int m_maxConnectCount; //最大连接数
         bool m_stop; //停止标志
         Signal m_sigStop; //停止信号
         /**
@@ -136,7 +137,11 @@ namespace mdf {
         //向某组连接广播消息(业务层接口)
         void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs);
 
-        bool SendMsg(int64 hostID, char* msg, unsigned int msgsize); //向某主机发送消息(业务层接口)
+        //向某组连接广播消息(业务层接口),反馈失败列表
+        void BroadcastMsg(std::vector<std::string>* recvGroupIDs, char* msg, unsigned int msgsize, std::vector<std::string>* filterGroupIDs, std::vector<int64>* failedList);
+
+        //向某主机发送消息(业务层接口)
+        bool SendMsg(int64 hostID, char* msg, unsigned int msgsize);
 
         //系统允许接受新连接
         bool AllowAcceptConnection();
@@ -182,6 +187,9 @@ namespace mdf {
 
         //设置平均连接数
         void SetAverageConnectCount(int count);
+
+        //设置最大连接数
+        void SetMaxConnectCount(int count);
 
         //设置心跳时间
         void SetHeartTime(int nSecond);
