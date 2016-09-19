@@ -217,6 +217,12 @@ namespace mdf {
 
         //获取启动错误
         const char* GetInitError();
+
+        //获取网络IO线程池任务数
+        uint32 GetNetIOTaskCount();
+
+        //获取工作线程池任务数
+        uint32 GetWorkTaskCount();
     };
 
 } // namespace mdf

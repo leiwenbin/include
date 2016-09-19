@@ -238,6 +238,12 @@ namespace mdf {
         //获取当前连接数
         uint32 GetConnectionCount();
 
+        //获取网络IO线程池任务数
+        uint32 GetNetIOTaskCount();
+
+        //获取工作线程池任务数
+        uint32 GetWorkTaskCount();
+
 #ifndef WIN32
         int m_hEPoll;
         epoll_event* m_events;
