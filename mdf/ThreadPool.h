@@ -51,6 +51,7 @@ namespace mdf {
         void SetOnStart(FuntionPointer fun, void* pParam);
 
         bool Start(int nMinThreadNum);        //启动线程池
+
         void Stop();        //关闭所有线程
         //接受任务
         //method为声明为void* fun(void*)的成员函数
@@ -60,7 +61,7 @@ namespace mdf {
         //fun为声明为void* fun(void*)的函数
         void Accept(FuntionPointer fun, void* pParam);
 
-        int GetTaskCount();
+        int GetTaskCount();  //获取当前任务数量
 
     protected:
         bool CreateThread(unsigned short nNum);    //在线程池中创建n个线程

@@ -15,92 +15,63 @@
 #define AES_KEYLEN 256
 #define AES_ROUNDS 6
 
-//#define PSUEDO_CLIENT
-
-//#define USE_PBKDF
-
 #define SUCCESS 0
 #define FAILURE -1
 
-#define KEY_SERVER_PRI 0
-#define KEY_SERVER_PUB 1
-#define KEY_CLIENT_PUB 2
-#define KEY_CLIENT_PRI 3
-#define KEY_LOCALE_PUB 4
-#define KEY_LOCALE_PRI 5
-#define KEY_AES        6
-#define KEY_AES_IV     7
+#define KEY_REMOTE_PUB  1
+#define KEY_LOCAL_PUB   2
+#define KEY_LOCAL_PRI   3
+#define KEY_AES         4
+#define KEY_AES_IV      5
 
 class Crypto {
 
 public:
     Crypto();
 
-    Crypto(unsigned char* remotePubKey, size_t remotePubKeyLen);
-
     ~Crypto();
 
-    int InitRsa();
-
-    int InitAes();
-
-    int RsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, unsigned char** ek, size_t* ekl, unsigned char** iv, size_t* ivl);
-
     int AesEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
-
-    int RsaDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char* ek, size_t ekl, unsigned char* iv, size_t ivl, unsigned char** decMsg);
 
     int AesDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
 
     int WriteKeyToFile(FILE* fd, int key);
 
-    int GetRemotePubKey(unsigned char** pubKey);
+    int SetAesKey(unsigned char* aesKey, size_t aesKeyLen);
 
-    int SetRemotePubKey(unsigned char* pubKey, size_t pubKeyLen);
+    int SetAesIv(unsigned char* aesIv, size_t aesIvLen);
 
-    int GetRemotePriKey(unsigned char** priKey);
+    int RsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
-    int SetRemotePriKey(unsigned char* priKey, size_t priKeyLen);
+    int RsaDecrypt(const unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
 
-    int GetLocalPubKey(unsigned char** pubKey);
+    int SetRsaLocalPubKey(unsigned char* key, size_t keyLen);
 
-    int SetLocalPubKey(unsigned char* pubKey, size_t pubKeyLen);
+    int SetRsaLocalPriKey(unsigned char* key, size_t keyLen);
 
-    int GetLocalPriKey(unsigned char** priKey);
+    int SetRsaRemotePubKey(unsigned char* key, size_t keyLen);
 
-    int SetLocalPriKey(unsigned char* priKey, size_t priKeyLen);
+    int GenerateAesIv();
 
-    int GetAESKey(unsigned char** aesKey);
+    int InitAes();
 
-    int SetAESKey(unsigned char* aesKey, size_t aesKeyLen);
+    int InitRsa();
+protected:
 
-    int GetAESIv(unsigned char** aesIv);
+    void FreeAes();
 
-    int SetAESIv(unsigned char* aesIv, size_t aesIvLen);
-
-    int GenTestClientKey();
-
-    int GenTestServerKey();
-
-    int RsaEncryptNew(unsigned char* pubKey, size_t pubKeyLen, const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
-
-    int RsaDecryptNew(unsigned char* priKey, size_t priKeyLen, const unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
+    void FreeRsa();
 
 private:
-    EVP_PKEY* localKeypair;
-    EVP_PKEY* remoteKeypair;
-
-    EVP_CIPHER_CTX* rsaEncryptCtx;
     EVP_CIPHER_CTX* aesEncryptCtx;
-
-    EVP_CIPHER_CTX* rsaDecryptCtx;
     EVP_CIPHER_CTX* aesDecryptCtx;
 
     unsigned char* aesKey;
-    unsigned char* aesIV;
+    unsigned char* aesIv;
 
-    RSA* rsaLocalePubKey;
-    RSA* rsaLocalePriKey;
+    RSA* rsaRemotePubKey;
+    RSA* rsaLocalPubKey;
+    RSA* rsaLocalPriKey;
 };
 
 #endif

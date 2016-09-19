@@ -6,7 +6,11 @@
 #ifndef LIB_JSONCPP_JSON_TOOL_H_INCLUDED
 #define LIB_JSONCPP_JSON_TOOL_H_INCLUDED
 
+#ifndef NO_LOCALE_SUPPORT
+
 #include <clocale>
+
+#endif
 
 /* This header provides common string manipulation support, such as UTF-8,
  * portable conversion from/to string...
@@ -15,8 +19,23 @@
  */
 
 namespace Json {
+    static char getDecimalPoint() {
+#ifdef NO_LOCALE_SUPPORT
 
-/// Converts a unicode code-point to UTF-8.
+        if (lc == NULL)
+                return '\0';
+#else
+        struct lconv* lc = localeconv();
+
+        if (lc)
+            return *(lc->decimal_point);
+        else
+            return '\0';
+#endif
+    }
+
+
+    /// Converts a unicode code-point to UTF-8.
     static inline JSONCPP_STRING codePointToUTF8(unsigned int cp) {
         JSONCPP_STRING result;
 
@@ -85,11 +104,11 @@ namespace Json {
     }
 
     static inline void fixNumericLocaleInput(char* begin, char* end) {
-        struct lconv* lc = localeconv();
-        if ((lc != NULL) && (*(lc->decimal_point) != '.')) {
+        char decimalPoint = getDecimalPoint();
+        if (decimalPoint != '\0' && decimalPoint != '.') {
             while (begin < end) {
                 if (*begin == '.') {
-                    *begin = *(lc->decimal_point);
+                    *begin = decimalPoint;
                 }
                 ++begin;
             }
