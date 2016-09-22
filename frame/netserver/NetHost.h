@@ -209,6 +209,12 @@ namespace mdf {
         //获取空连接状态
         bool GetIdleState();
 
+        //获取发送缓冲区的数据长度
+        uint32 GetSendBufferDataLength();
+
+        //获取接收缓冲区的数据长度
+        uint32 GetRecvBufferDataLength();
+
     private:
         NetConnect* m_pConnect; //连接对象指针,调用NetConnect的业务层接口，屏蔽NetConnect的通信层接口
 

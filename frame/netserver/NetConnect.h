@@ -68,9 +68,15 @@ namespace mdf {
         void SetID(int64 connectId);
 
         int64 GetID(); //取得ID
+
         Socket* GetSocket(); //取得套接字
+
         bool IsReadAble(); //可读
+
         uint32 GetLength(); //取得数据长度
+
+        uint32 GetSendBuffUsedLength(); //获取发送缓冲区的数据长度
+
         //从接收缓冲中读数据，数据不够，直接返回false，无阻塞模式
         //bClearCache为false，读出数据不会从接收缓冲删除，下次还是从相同位置读取
         bool ReadData(unsigned char* pMsg, unsigned int uLength, bool bClearCache = true);
@@ -78,7 +84,9 @@ namespace mdf {
         bool SendData(const unsigned char* pMsg, unsigned int uLength);
 
         bool SendStart(); //开始发送流程
+
         void SendEnd(); //结束发送流程
+
         void Close(); //关闭连接
 
         //刷新心跳时间
@@ -97,9 +105,13 @@ namespace mdf {
         void SetUsed();
 
         bool IsInGroups(std::vector<std::string>* groups); //属于某些分组
+
         bool IsServer(); //主机是一个服务
+
         void InGroup(std::string& groupID); //放入某分组，同一个主机可多次调用该方法，放入多个分组，非线程安全
+
         void OutGroup(std::string& groupID); //从某分组删除，非线程安全
+
         void Release();
 
         /*
