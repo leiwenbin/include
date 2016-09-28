@@ -7,7 +7,8 @@
 #define JSON_CONFIG_H_INCLUDED
 
 #include <stddef.h>
-#include <string> //typdef String
+#include <string> //typedef String
+#include <stdint.h> //typedef int64_t, uint64_t
 
 /// If defined, indicates that json library is embedded in CppTL library.
 //# define JSON_IN_CPPTL 1
@@ -141,8 +142,8 @@
 #endif // if !defined(JSON_IS_AMALGAMATION)
 
 namespace Json {
-    typedef int Int;
-    typedef unsigned int UInt;
+    typedef int32_t Int;
+    typedef uint32_t UInt;
 #if defined(JSON_NO_INT64)
     typedef int LargestInt;
     typedef unsigned int LargestUInt;
@@ -153,8 +154,8 @@ namespace Json {
     typedef __int64 Int64;
     typedef unsigned __int64 UInt64;
 #else                 // if defined(_MSC_VER) // Other platforms, use long long
-    typedef long long Int64;
-    typedef unsigned long long UInt64;
+    typedef int64_t Int64;
+    typedef uint64_t UInt64;
 
 #endif // if defined(_MSC_VER)
     typedef Int64 LargestInt;
