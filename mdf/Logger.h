@@ -62,6 +62,7 @@ namespace mdf {
         int m_maxExistDay;
         int m_index; //日志编号
         char* m_exeDir;
+        time_t m_lastDelTime;
     };
 
 } //namespace mdf
