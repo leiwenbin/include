@@ -99,7 +99,9 @@ typedef struct DataBlock {
 typedef enum MsgError {
     SEND_SUCCESS = 0x00,
     CLIENT_NOT_FOUND,
-    SEND_ERROR
+    SEND_ERROR,
+    /* retry error 3~7 */
+    NOT_RECEIPT = 0x08
 } MSG_ERROR;
 
 typedef struct MsgException {
