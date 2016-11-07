@@ -101,7 +101,8 @@ typedef enum MsgError {
     CLIENT_NOT_FOUND,
     SEND_ERROR,
     /* retry error 3~7 */
-    NOT_RECEIPT = 0x08
+    NOT_RECEIPT = 0x08,
+    CONVERT_OFFLINE
 } MSG_ERROR;
 
 typedef struct MsgException {
