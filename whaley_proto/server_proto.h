@@ -38,34 +38,35 @@ typedef enum ServerRole {
     NONE = 0, CENTER_SERVER, HOST_SERVER, PUSH_SERVER, CONSOLE_SERVER
 } SERVER_ROLE;
 
-//CLIENT TYPE
+//TARGET TYPE
 typedef enum TargetType {
-    TARGET_CLIENT = 0, TARGET_USER
+    TARGET_CLIENT = 0, TARGET_USER, TARGET_MULTI
 } TARGET_TYPE;
 
 typedef struct Target {
-    char uid[128];
-    char accountId[128];
-    TARGET_TYPE targetType;
+    char uid_key[128];
+    char account_key[128];
+    TARGET_TYPE target_type;
 } TARGET;
 
 typedef struct Targets {
-    uint32_t uiTargetCount;
+    uint32_t target_count;
     Target target[0];
 } TARGETS;
 
 typedef struct PushMsg {
-    long long int llFailureTime;
+    long long int failure_time;
     char product[32];
-    char msgId[64];
-    int nReceipt;
-    uint32_t uiMsgLen;
-    char msgBuff[0];
+    char msg_id[64];
+    int receipt;
+    int push_type;
+    uint32_t msg_len;
+    char msg_buf[0];
 } PUSH_MSG;
 
 typedef struct SortPushMsg {
-    long long int llSendTime;
-    PUSH_MSG* pPushMsg;
+    long long int send_time;
+    PUSH_MSG* push_msg;
 } SORT_PUSH_MSG;
 
 typedef struct SvrInfo {
@@ -80,20 +81,20 @@ typedef struct SvrInfo {
     uint32_t load;
     uint32_t memory_used;
     uint32_t online;
-    ServerRole svrRole;
+    ServerRole svr_role;
     long long timestamp;
 } SVR_INFO;
 
 typedef struct HostSession {
-    uint32_t uiHaveUser;
-    char uidKey[128];
-    char accountKey[128];
+    uint32_t have_user;
+    char uid_key[128];
+    char account_key[128];
 } HOST_SESSION;
 
 typedef struct DataBlock {
-    uint32_t uiBlockLen;
-    char szProduct[128];
-    char szBlock[0];
+    uint32_t block_len;
+    char product[128];
+    char block_buf[0];
 } DATA_BLOCK;
 
 typedef enum MsgError {
@@ -107,9 +108,27 @@ typedef enum MsgError {
 
 typedef struct MsgException {
     TARGET target;
-    MSG_ERROR msgError;
-    PUSH_MSG pushMsg;
+    MSG_ERROR msg_error;
+    PUSH_MSG push_msg;
 } MSG_EXCEPTION;
+
+typedef struct MsgKeyAndAccountKey {
+    char msg_id[64];
+    char account_key[128];
+} MSG_KEY_AND_ACCOUNT_KEY;
+
+//消息推送类型
+typedef enum PushType {
+    PUSH_NONE = 0,
+    PUSH_SINGLE = 2,            //单播在线+离线
+    PUSH_SINGLE_ONLINE,         //单播在线
+    PUSH_SINGLE_MULTI,          //设备+帐号单播在线+离线
+    PUSH_SINGLE_MULTI_ONLINE,   //设备+帐号单播在线
+    PUSH_ALL,                   //广播在线+离线
+    PUSH_ALL_ONLINE,            //广播在线
+    PUSH_MULTICAST_NO_LOGIN,    //多播未登录帐号的客户端
+    PUSH_MULTICAST_LOGIN        //多播已登录帐号的客户端
+} PUSH_TYPE;
 
 #pragma pack(pop)
 
