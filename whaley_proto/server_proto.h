@@ -38,10 +38,25 @@ typedef enum ServerRole {
     NONE = 0, CENTER_SERVER, HOST_SERVER, PUSH_SERVER, CONSOLE_SERVER
 } SERVER_ROLE;
 
-//TARGET TYPE
+//目标类型
 typedef enum TargetType {
-    TARGET_CLIENT = 0, TARGET_USER, TARGET_MULTI
+    TARGET_CLIENT = 0, //终端
+    TARGET_USER,       //帐户
+    TARGET_MULTI       //终端+帐户
 } TARGET_TYPE;
+
+//推送类型
+typedef enum PushType {
+    PUSH_NONE = 0,
+    PUSH_ALL,          //在线+离线
+    PUSH_ONLINE        //在线
+} PUSH_TYPE;
+
+//回执类型
+typedef enum ReceiptLv {
+    NOT_NEED_RECEIPT = 0,       //不需要回执
+    MUST_NEED_RECEIPT           //需要回执
+} RECEIPT_LV;
 
 typedef struct Target {
     char uid_key[128];
@@ -56,18 +71,14 @@ typedef struct Targets {
 
 typedef struct PushMsg {
     long long int failure_time;
+    long long int send_time;
     char product[32];
     char msg_id[64];
-    int receipt;
-    int push_type;
+    RECEIPT_LV receipt_lv;
+    PUSH_TYPE push_type;
     uint32_t msg_len;
     char msg_buf[0];
 } PUSH_MSG;
-
-typedef struct SortPushMsg {
-    long long int send_time;
-    PUSH_MSG* push_msg;
-} SORT_PUSH_MSG;
 
 typedef struct SvrInfo {
     char ip[32];
@@ -112,23 +123,10 @@ typedef struct MsgException {
     PUSH_MSG push_msg;
 } MSG_EXCEPTION;
 
-typedef struct MsgKeyAndAccountKey {
+typedef struct MsgReceiptVal {
     char msg_id[64];
-    char account_key[128];
-} MSG_KEY_AND_ACCOUNT_KEY;
-
-//消息推送类型
-typedef enum PushType {
-    PUSH_NONE = 0,
-    PUSH_SINGLE = 2,            //单播在线+离线
-    PUSH_SINGLE_ONLINE,         //单播在线
-    PUSH_SINGLE_MULTI,          //设备+帐号单播在线+离线
-    PUSH_SINGLE_MULTI_ONLINE,   //设备+帐号单播在线
-    PUSH_ALL,                   //广播在线+离线
-    PUSH_ALL_ONLINE,            //广播在线
-    PUSH_MULTICAST_NO_LOGIN,    //多播未登录帐号的客户端
-    PUSH_MULTICAST_LOGIN        //多播已登录帐号的客户端
-} PUSH_TYPE;
+    TARGET target;
+} MSG_RECEIPT_VAL;
 
 #pragma pack(pop)
 
