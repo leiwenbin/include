@@ -33,6 +33,8 @@
 
 #define COMMON_AGENT_LOST_RET           0x10000501    //AGENT已断开
 
+#define COMMON_SYSTEM_KICK_REQ          0x10000701    //系统踢出终端指令
+
 //SERVER ROLE
 typedef enum ServerRole {
     NONE = 0, CENTER_SERVER, HOST_SERVER, PUSH_SERVER, CONSOLE_SERVER
@@ -57,6 +59,12 @@ typedef enum ReceiptLv {
     NOT_NEED_RECEIPT = 0,       //不需要回执
     MUST_NEED_RECEIPT           //需要回执
 } RECEIPT_LV;
+
+//系统指令
+typedef enum SysCmd {
+    NO_CMD = 0,
+    CMD_KICK           //踢出终端
+} SYS_CMD;
 
 typedef struct Target {
     char uid_key[128];
@@ -114,7 +122,8 @@ typedef enum MsgError {
     SEND_ERROR,
     /* retry error 3~7 */
     NOT_RECEIPT = 0x08,
-    CONVERT_OFFLINE
+    CONVERT_OFFLINE,        //转存离线消息
+    CONVERT_DISCARD         //离线丢弃
 } MSG_ERROR;
 
 typedef struct MsgException {
