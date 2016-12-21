@@ -100,6 +100,7 @@ typedef struct SvrInfo {
     uint32_t load;
     uint32_t memory_used;
     uint32_t online;
+    uint32_t credibility;
     ServerRole svr_role;
     long long timestamp;
 } SVR_INFO;

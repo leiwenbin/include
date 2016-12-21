@@ -142,6 +142,12 @@ namespace mdf {
         //获取空连接状态
         bool GetIdleState();
 
+        //设置连接是正常断开的
+        void SetNormalDisconnect();
+
+        //获取连接是否是正常断开的
+        bool GetNormalDisconnect();
+
     private:
         int m_useCount; //访问计数
         IOBuffer m_recvBuffer; //接收缓冲
@@ -170,7 +176,8 @@ namespace mdf {
         mdf::Mutex m_mutexData; //主机数据锁
         bool m_autoFreeData;
         void* m_pSvrInfo; //服务信息，当NetConnect代表一个服务器时有效
-        bool m_IdleState; //空连接状态
+        bool m_bIdleState; //空连接状态
+        bool m_bNormalDisconnect; //连接正常断开状态
 
     };
 

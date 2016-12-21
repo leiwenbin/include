@@ -209,6 +209,9 @@ namespace mdf {
         //获取空连接状态
         bool GetIdleState();
 
+        //获取连接是否是正常断开的
+        bool GetNormalDisconnect();
+
         //获取发送缓冲区的数据长度
         uint32 GetSendBufferDataLength();
 
