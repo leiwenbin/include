@@ -130,7 +130,9 @@ typedef enum MsgError {
     NOT_RECEIPT,            //消息未回执
     CONVERT_OFFLINE,        //转存离线消息
     CONVERT_DISCARD,        //离线丢弃
-    SEND_BEGIN              //开始推送
+    SEND_BEGIN,             //开始推送
+    CREATE_FAILED,          //消息推送任务创建失败
+    DUPLICATE_DISCARD       //重复消息过滤
 } MSG_ERROR;
 
 typedef struct MsgException {
