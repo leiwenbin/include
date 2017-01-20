@@ -122,17 +122,18 @@ typedef enum MsgError {
     SEND_SUCCESS = 0x00,
     CLIENT_NOT_FOUND,       //终端未找到
     SEND_ERROR,             //数据发送错误
-    MSG_EXPIRE,		        //消息已经失效
-    FORMAT_INVALID,			//消息格式错误
-    TARGET_NOT_FOUND,	    //消息目标未找到
-    REDIS_EXEC_ERROR,		//数据操作异常
+    MSG_EXPIRE,             //消息已经失效
+    FORMAT_INVALID,         //消息格式错误
+    TARGET_NOT_FOUND,       //消息目标未找到
+    REDIS_EXEC_ERROR,       //数据操作异常
     NODE_NOT_FOUND,         //无可用节点
     NOT_RECEIPT,            //消息未回执
     CONVERT_OFFLINE,        //转存离线消息
     CONVERT_DISCARD,        //离线丢弃
-    SEND_BEGIN,             //开始推送
+    SEND_BEGIN,             //在线消息开始推送
     CREATE_FAILED,          //消息推送任务创建失败
-    DUPLICATE_DISCARD       //重复消息过滤
+    DUPLICATE_DISCARD,      //重复消息过滤
+    OFFLINE_SEND_BEGIN      //离线消息开始推送
 } MSG_ERROR;
 
 typedef struct MsgException {
