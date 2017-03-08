@@ -13,6 +13,9 @@
 
 #include "type_proto.h"
 
+//VERSION
+#define COMMON_PROTOCOL_VER      120           //协议版本号
+
 //COMMAND
 #define COMMON_KEEP_ALIVE_REQ    0x10000020    //全局心跳请求
 #define COMMON_KEEP_ALIVE_RET    0x10000021    //全局心跳返回
