@@ -122,11 +122,14 @@ namespace mdf {
         //设置单个服务器进程可能承载的最大连接数，默认10000
         void SetMaxConnectCount(int count);
 
-        //设置心跳时间,最小10s，不设置则，或设置小于等于0，服务器不检查心跳
+        //设置心跳时间，最小10s，不设置或设置小于等于0，服务器不检查心跳
         void SetHeartTime(int nSecond);
 
-        //设置防空连接时间,最小10s，不设置则，或设置小于等于0，服务器不检查空连接
+        //设置防空连接时间，不设置或设置小于等于0，服务器不检查空连接
         void SetIdleTime(int nSecond);
+
+        //设置发生业务行为的限制时间，不设置或设置小于等于0，服务器不检查无业务行为的连接
+        void SetBehaviorTime(int nSecond);
 
         //设置网络IO线程数量，建设设置为CPU数量的1~2倍
         void SetIOThreadCount(int nCount);

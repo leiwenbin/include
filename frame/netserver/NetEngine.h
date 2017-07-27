@@ -75,6 +75,7 @@ namespace mdf {
         Mutex m_connectsMutex; //连接列表访问控制
         int m_nHeartTime; //心跳间隔(S)
         int m_nIdleTime; //防空连接间隔(S)
+        int m_nBehaviorTime; //发生业务行为的限制时间(S)
         Thread m_mainThread;
         NetEventMonitor* m_pNetMonitor;
         ThreadPool m_ioThreads; //io线程池
@@ -194,8 +195,11 @@ namespace mdf {
         //设置心跳时间
         void SetHeartTime(int nSecond);
 
-        //设置防空连接时间,只有设置了心跳时间才有效
+        //设置防空连接时间
         void SetIdleTime(int nSecond);
+
+        //设置发生业务行为的限制时间
+        void SetBehaviorTime(int nSecond);
 
         //设置网络IO线程数量
         void SetIOThreadCount(int nCount);

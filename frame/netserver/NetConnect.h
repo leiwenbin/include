@@ -104,6 +104,12 @@ namespace mdf {
         //设置连接已被使用
         void SetUsed();
 
+        //连接是否有业务行为
+        bool IsBehavior();
+
+        //设置连接的业务行为
+        void SetBehavior();
+
         bool IsInGroups(std::vector<std::string>* groups); //属于某些分组
 
         bool IsServer(); //主机是一个服务
@@ -142,6 +148,12 @@ namespace mdf {
         //获取空连接状态
         bool GetIdleState();
 
+        //设置连接无业务行为状态
+        void SetNoBehaviorState();
+
+        //获取连接无业务行为状态
+        bool GetNoBehaviorState();
+
         //设置连接是正常断开的
         void SetNormalDisconnect();
 
@@ -168,7 +180,8 @@ namespace mdf {
         NetHost m_host;
         time_t m_tLastHeart; //最后一次收到心跳时间
         time_t m_tCreateTime; //连接创建的时间
-        bool m_bUnused; //未使用的连接
+        bool m_bUnused; //未使用的连接（从未接受到数据）
+        bool m_bBehavior; //业务行为
         bool m_bIsServer; //主机类型服务器
         std::map<std::string, int> m_groups; //所属分组
         MemoryPool* m_pMemoryPool;
@@ -177,6 +190,7 @@ namespace mdf {
         bool m_autoFreeData;
         void* m_pSvrInfo; //服务信息，当NetConnect代表一个服务器时有效
         bool m_bIdleState; //空连接状态
+        bool m_bNoBehaviorState; //业务行为状态
         bool m_bNormalDisconnect; //连接正常断开状态
 
     };

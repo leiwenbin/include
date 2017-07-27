@@ -209,6 +209,12 @@ namespace mdf {
         //获取空连接状态
         bool GetIdleState();
 
+        //获取连接业务行为状态
+        bool GetNoBehaviorState();
+
+        //设置连接业务行为
+        void SetBehavior();
+
         //获取连接是否是正常断开的
         bool GetNormalDisconnect();
 
