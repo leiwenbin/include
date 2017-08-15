@@ -1,5 +1,5 @@
-﻿#ifndef TOOL_C_THREAD_POOL_IMP_H
-#define TOOL_C_THREAD_POOL_IMP_H
+﻿#ifndef TOOL_C_MULTI_CHAN_THREAD_POOL_IMP_H
+#define TOOL_C_MULTI_CHAN_THREAD_POOL_IMP_H
 /*
  线程池类
  使用方法
@@ -20,6 +20,7 @@
 #include <list>
 #include <vector>
 #include <map>
+#include <string>
 
 #include "Thread.h"
 #include "Lock.h"
@@ -30,22 +31,25 @@ namespace mdf {
     class MemoryPool;
 
 //线程信息
-    typedef struct THREAD_CONTEXT {
+    typedef struct MULTI_CHAN_THREAD_CONTEXT {
         Thread thread;
         bool bIdle;       //线程处于空闲
         bool bRun;        //运行控制标志
-    } THREAD_CONTEXT;
-    typedef std::map<ThreadID, THREAD_CONTEXT*> threadMaps;
+        std::list<Task*>* tasks;   //队列
+        Signal* pSignal;    //信号量
+
+    } MULTI_CHAN_THREAD_CONTEXT;
+    typedef std::map<ThreadID, MULTI_CHAN_THREAD_CONTEXT*> multiChanThreadMaps;
 
     class Task;
 
     class MemoryPool;
 
-    class ThreadPool {
+    class MultiChanThreadPool {
     public:
-        ThreadPool();
+        MultiChanThreadPool();
 
-        ~ThreadPool();
+        ~MultiChanThreadPool();
 
         void SetOnStart(MethodPointer method, void* pObj, void* pParam);
 
@@ -56,23 +60,23 @@ namespace mdf {
         void Stop();        //关闭所有线程
         //接受任务
         //method为声明为void* fun(void*)的成员函数
-        void Accept(MethodPointer method, void* pObj, void* pParam);
+        void Accept(std::string& strIndex, MethodPointer method, void* pObj, void* pParam);
 
         //接受任务
         //fun为声明为void* fun(void*)的函数
-        void Accept(FuntionPointer fun, void* pParam);
+        void Accept(std::string& strIndex, FuntionPointer fun, void* pParam);
 
-        int GetTaskCount();  //获取当前任务数量
+        int GetTaskCount(unsigned short usIndex);  //获取当前任务数量
 
     protected:
         bool CreateThread(unsigned short nNum);    //在线程池中创建n个线程
-        THREAD_CONTEXT* CreateContext();    //创建一个上下文
-        void ReleaseContext(THREAD_CONTEXT* pContext);    //释放一个上下文
+        MULTI_CHAN_THREAD_CONTEXT* CreateContext();    //创建一个上下文
+        void ReleaseContext(MULTI_CHAN_THREAD_CONTEXT* pContext);    //释放一个上下文
         void* RemoteCall ThreadFunc(void* pParam);    //线程函数
         Task* CreateTask();    //创建一个任务
         void ReleaseTask(Task* pTask);    //释放一个任务
-        void PushTask(Task* pTask);    //将任务放入线程池执行。※注：pTask必须是new出来的对象，alloc都不行
-        Task* PullTask();    //取出一个任务
+        void PushTask(Task* pTask, unsigned int uiIndex);    //将任务放入线程池执行。※注：pTask必须是new出来的对象，alloc都不行
+        Task* PullTask(std::list<Task*>* pTasks);    //取出一个任务
         //备用方法，暂无调用需求
         void StopIdle();    //关闭空闲线程(保证最小线程数)
 
@@ -84,11 +88,11 @@ namespace mdf {
 
         unsigned short m_nMinThreadNum;    //线程池中必须存在的最小线程数
         unsigned short m_nThreadNum;    //线程池中启动的线程数
-        threadMaps m_threads;    //线程表
+        multiChanThreadMaps m_threads;    //线程表
         Mutex m_threadsMutex;    //线程表线程安全锁
-        std::list<Task*> m_tasks;    //任务表
+        std::vector<std::list<Task*> > m_tasks; //多队列分组任务表
         Mutex m_tasksMutex;    //任务表线程安全锁
-        Signal m_sigNewTask;    //新任务信号
+        std::vector<Signal> m_sigNewTask;    //新任务信号
         Task m_taskOnStart;    //开始响应
     };
 
