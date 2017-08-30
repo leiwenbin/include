@@ -77,7 +77,7 @@ namespace mdf {
 
     time_t mdf_Time(); //返回当前日时间（精确到秒）
 
-    bool GetExeDir(char* exeDir, int size); //取得可执行程序位置
+    bool GetExeDir(char* exeDir, int size); //取得可执行程序位置,linux不带斜杠win下带斜杠
 
     mdf::uint64 MillTime(); //毫秒级当前时间
 

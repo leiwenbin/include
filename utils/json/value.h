@@ -249,7 +249,11 @@ namespace Json {
 
             ~CZString();
 
-            CZString& operator=(CZString other);
+            CZString& operator=(const CZString& other);
+
+#if JSON_HAS_RVALUE_REFERENCES
+            CZString& operator=(CZString&& other);
+#endif
 
             bool operator<(CZString const& other) const;
 
@@ -364,6 +368,12 @@ namespace Json {
 
         /// Swap values but leave comments and source offsets in place.
         void swapPayload(Value& other);
+
+        /// copy everything.
+        void copy(const Value& other);
+
+        /// copy values but leave comments and source offsets in place.
+        void copyPayload(const Value& other);
 
         ValueType type() const;
 
@@ -507,6 +517,10 @@ namespace Json {
         /// Equivalent to jsonvalue[jsonvalue.size()] = value;
         Value& append(const Value& value);
 
+#if JSON_HAS_RVALUE_REFERENCES
+        Value& append(Value&& value);
+#endif
+
         /// Access an object value by name, create a null member if it does not exist.
         /// \note Because of our implementation, keys are limited to 2^30 -1 chars.
         ///  Exceeding that will cause an exception.
@@ -584,11 +598,13 @@ namespace Json {
         /// \pre type() is objectValue or nullValue
         /// \post type() is unchanged
         /// \deprecated
+        JSONCPP_DEPRECATED("")
         Value removeMember(const char* key);
 
         /// Same as removeMember(const char*)
         /// \param key may contain embedded nulls.
         /// \deprecated
+        JSONCPP_DEPRECATED("")
         Value removeMember(const JSONCPP_STRING& key);
 
         /// Same as removeMember(const char* begin, const char* end, Value* removed),

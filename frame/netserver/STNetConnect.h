@@ -112,6 +112,10 @@ namespace mdf {
         //设置服务信息
         void SetSvrInfo(void* pData);
 
+        bool AddEpollSend();
+
+        bool AddEpollRecv();
+
         //取服务信息
         void* GetSvrInfo();
 
@@ -151,6 +155,8 @@ namespace mdf {
         MemoryPool* m_pMemoryPool;
         void* m_pSvrInfo;//服务信息，当NetConnect代表一个服务器时有效
 
+        bool m_monitorSend;
+        bool m_monitorRecv;
     };
 
 }

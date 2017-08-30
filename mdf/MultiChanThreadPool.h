@@ -66,7 +66,7 @@ namespace mdf {
         //fun为声明为void* fun(void*)的函数
         void Accept(std::string& strIndex, FuntionPointer fun, void* pParam);
 
-        int GetTaskCount(unsigned short usIndex);  //获取当前任务数量
+        unsigned int GetTaskCount(unsigned short usIndex);  //获取当前任务数量
 
     protected:
         bool CreateThread(unsigned short nNum);    //在线程池中创建n个线程

@@ -147,6 +147,37 @@ typedef struct MsgReceiptVal {
     TARGET target;
 } MSG_RECEIPT_VAL;
 
+typedef struct ClientLoginParams {
+    char product[128];
+    char uid_key[128];
+    char ip[32];
+    SVR_INFO* pSvrInfo;
+    char client_info[1024];
+} CLIENT_LOGIN_PARAMS;
+
+typedef struct ClientLogoutParams {
+    char uid_key[128];
+} CLIENT_LOGOUT_PARAMS;
+
+typedef struct UserLoginParams {
+    char product[128];
+    char uid_key[128];
+    char account_key[128];
+    char ip[32];
+    SVR_INFO* pSvrInfo;
+    char user_info[1024];
+} USER_LOGIN_PARAMS;
+
+typedef struct UserLogoutParams {
+    char uid_key[128];
+    char account_key[128];
+    int unbindStatus;
+} USER_LOGOUT_PARAMS;
+
+typedef struct OfflineMsgParams {
+    TARGET target;
+} OFFLINE_MSG_PARAMS;
+
 #pragma pack(pop)
 
 #endif /* SERVER_PROTO_H_ */

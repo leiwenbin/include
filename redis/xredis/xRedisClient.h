@@ -79,7 +79,7 @@ public:
     void SetIOMaster();
 
 private:
-    bool SetErrInfo(const char* info, int len);
+    bool SetErrInfo(const char* info, size_t len);
 
     void IOtype(unsigned int type);
 
@@ -165,9 +165,9 @@ public:
 
     inline RedisPool* GetRedisPool();
 
-    static void FreeReply(const rReply* reply);
-
     static int GetReply(xRedisContext* ctx, ReplyData& vData);
+
+    bool GetxRedisContext(const RedisDBIdx& dbi, xRedisContext* ctx);
 
     void FreexRedisContext(xRedisContext* ctx);
 
@@ -255,8 +255,7 @@ public:
     /* RENAME      */
     /* RENAMENX    */
     /* RESTORE     */
-    /* SCAN        */
-
+    /* SCAN        */  bool scan(const RedisDBIdx& dbi, int64_t& cursor, const char* pattern, uint32_t count, ArrayReply& array, xRedisContext& ctx);
 
     /* SORT        */  bool sort(const RedisDBIdx& dbi, ArrayReply& array, const std::string& key, const char* by = NULL,
                                  LIMIT* limit = NULL, bool alpha = false, const FILEDS* get = NULL,
@@ -287,7 +286,9 @@ public:
     /* HMGET       */  bool hmget(const RedisDBIdx& dbi, const std::string& key, const KEYS& field, ArrayReply& array);
 
     /* HMSET       */  bool hmset(const RedisDBIdx& dbi, const std::string& key, const VDATA& vData);
-    /* HSCAN       */
+
+    /* HSCAN       */  bool hscan(const RedisDBIdx& dbi, const std::string& key, int64_t& cursor, const char* pattern, uint32_t count, ArrayReply& array, xRedisContext& ctx);
+
     /* HSET        */  bool hset(const RedisDBIdx& dbi, const std::string& key, const std::string& field, const std::string& value, int64_t& retval);
 
     /* HSETNX      */  bool hsetnx(const RedisDBIdx& dbi, const std::string& key, const std::string& field, const std::string& value);
@@ -297,9 +298,7 @@ public:
     /* BLPOP       */  bool blpop(const RedisDBIdx& dbi, const std::string& key, VALUES& values, int64_t& timeout);
 
     /* BRPOP       */  bool brpop(const RedisDBIdx& dbi, const std::string& key, VALUES& values, int64_t& timeout);
-
     /* BRPOPLPUSH  */
-
     /* LINDEX      */  bool lindex(const RedisDBIdx& dbi, const std::string& key, int64_t index, VALUE& value);
 
     /* LINSERT     */  bool linsert(const RedisDBIdx& dbi, const std::string& key, LMODEL mod, const std::string& pivot, const std::string& value, int64_t& retval);
@@ -328,7 +327,6 @@ public:
 
     /* RPUSHX      */  bool rpushx(const RedisDBIdx& dbi, const std::string& key, const std::string& value, int64_t& length);
 
-
     /* SADD        */  bool sadd(const RedisDBIdx& dbi, const KEY& key, const VALUES& vValue, int64_t& count);
 
     /* SCARD       */  bool scard(const RedisDBIdx& dbi, const KEY& key, int64_t& count);
@@ -352,7 +350,9 @@ public:
     /* SRANDMEMBER */  bool srandmember(const RedisDBIdx& dbi, const KEY& key, VALUES& vmember, int num = 0);
 
     /* SREM        */  bool srem(const RedisDBIdx& dbi, const KEY& key, const VALUES& vmembers, int64_t& count);
-    /* SSCAN       */
+
+    /* SSCAN       */  bool sscan(const RedisDBIdx& dbi, const std::string& key, int64_t& cursor, const char* pattern, uint32_t count, ArrayReply& array, xRedisContext& ctx);
+
     /* SUNION      */  bool sunion(const DBIArray& dbi, const KEYS& vkey, VALUES& vValue);
 
     /* SUNIONSTORE */  bool sunionstore(const RedisDBIdx& dbi, const KEY& deskey, const DBIArray& vdbi, const KEYS& vkey, int64_t& count);
@@ -375,7 +375,9 @@ public:
     /* ZREVRANGE        */  bool zrevrange(const RedisDBIdx& dbi, const std::string& key, int start, int end, VALUES& vValues, bool withscore = false);
     /* ZREVRANGEBYSCORE */
     /* ZREVRANK         */  bool zrevrank(const RedisDBIdx& dbi, const std::string& key, const std::string& member, int64_t& rank);
-    /* ZSCAN            */
+
+    /* ZSCAN            */  bool zscan(const RedisDBIdx& dbi, const std::string& key, int64_t& cursor, const char* pattern, uint32_t count, ArrayReply& array, xRedisContext& ctx);
+
     /* ZSCORE           */  bool zscore(const RedisDBIdx& dbi, const std::string& key, const std::string& member, std::string& score);
     /* ZUNIONSTORE      */
 
@@ -406,19 +408,17 @@ public:
 
 
 private:
-    void addparam(VDATA& vDes, const VDATA& vSrc) {
-        for (VDATA::const_iterator iter = vSrc.begin(); iter != vSrc.end(); ++iter) {
-            vDes.push_back(*iter);
-        }
-    }
+    void addparam(VDATA& vDes, const VDATA& vSrc);
 
     void SetErrInfo(const RedisDBIdx& dbi, void* p);
 
-    void SetErrString(const RedisDBIdx& dbi, const char* str, int len);
+    void SetErrString(const RedisDBIdx& dbi, const char* str, size_t len);
 
     void SetErrMessage(const RedisDBIdx& dbi, const char* fmt, ...);
 
     void SetIOtype(const RedisDBIdx& dbi, unsigned int iotype, bool ioflag = false);
+
+    bool ScanFun(const char* cmd, const RedisDBIdx& dbi, const std::string* key, int64_t& cursor, const char* pattern, uint32_t count, ArrayReply& array, xRedisContext& ctx);
 
 public:
 
