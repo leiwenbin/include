@@ -405,10 +405,9 @@ Usage:
   * Someday we might have a real StreamReader, but for now this
   * is convenient.
   */
-    bool JSON_API parseFromStream(
-            CharReader::Factory const&,
-            JSONCPP_ISTREAM&,
-            Value* root, std::string* errs);
+    bool JSON_API parseFromStream(CharReader::Factory const&, JSONCPP_ISTREAM&, Value* root, JSONCPP_STRING* errs);
+
+    bool JSON_API parseFromString(CharReader::Factory const&, JSONCPP_STRING& doc, Value* root, JSONCPP_STRING* errs);
 
 /** \brief Read from 'sin' into 'root'.
 
