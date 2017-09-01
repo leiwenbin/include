@@ -113,7 +113,9 @@ typedef struct HostSession {
 
 typedef struct DataBlock {
     char ip[32];
-    char product[128];
+    char product[32];
+    char uid[128];
+    char accountid[128];
     uint32_t block_len;
     char block_buf[0];
 } DATA_BLOCK;
