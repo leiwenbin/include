@@ -78,6 +78,8 @@ public:
 
     void SetIOMaster();
 
+    unsigned int GetIndex();
+
 private:
     bool SetErrInfo(const char* info, size_t len);
 
