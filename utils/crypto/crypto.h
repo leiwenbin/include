@@ -45,6 +45,12 @@ public:
 
     int RsaDecrypt(const unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
 
+    int RsaSignByLocalPriKey(const unsigned char* text, unsigned char** signature);
+
+    int RsaVerifyByLocalPubKey(const unsigned char* text, const unsigned char* signature);
+
+    int RsaVerifyByRemotePubKey(const unsigned char* text, const unsigned char* signature);
+
     int SetRsaLocalPubKey(unsigned char* key, size_t keyLen);
 
     int SetRsaLocalPriKey(unsigned char* key, size_t keyLen);
@@ -56,6 +62,9 @@ public:
     int InitAes();
 
     int InitRsa();
+
+    void ShowRsa(unsigned char** pub, unsigned char** pri);
+
 protected:
 
     void FreeAes();
