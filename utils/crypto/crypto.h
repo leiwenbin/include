@@ -61,7 +61,7 @@ public:
 
     int InitAes();
 
-    int InitRsa();
+    int InitRsa(unsigned int bits);
 
     void ShowRsa(unsigned char** pub, unsigned char** pri);
 
@@ -81,6 +81,7 @@ private:
     RSA* rsaRemotePubKey;
     RSA* rsaLocalPubKey;
     RSA* rsaLocalPriKey;
+    unsigned int bits;
 };
 
 #endif
