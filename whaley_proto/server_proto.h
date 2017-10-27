@@ -28,12 +28,16 @@
 
 #define COMMON_CLIENT_EXCEPTION_REQ     0x10000110    //客户端再上线之前异常连接断开的消息
 
+#define COMMON_MSG_STATUS_REQ       0x10000111    //在线广播消息回执状态码?
+
 #define COMMON_CONSLOE_LOGIN_REQ        0x10000301    //CONSOLE控制台服务登录请求
 #define COMMON_CONSLOE_LOGIN_RET        0x10000303    //CONSOLE控制台服务登录返回
 
 #define COMMON_AGENT_LOST_RET           0x10000501    //AGENT已断开
 
 #define COMMON_SYSTEM_KICK_REQ          0x10000701    //系统踢出终端指令
+
+#define PRODUCT_LENGTH      32
 
 //SERVER ROLE
 typedef enum ServerRole {
@@ -88,6 +92,39 @@ typedef struct PushMsg {
     char msg_buf[0];
 } PUSH_MSG;
 
+struct ConnByProduct
+{
+public:
+    ConnByProduct():product({0}),client_count(0),user_count(0)
+    {
+
+    }
+    ConnByProduct(const char*product,int32_t client_count,int32_t user_count)
+            :product({0}),client_count(client_count),user_count(user_count)
+    {
+        if(product != NULL)
+        {
+            memcpy(this->product,product,strlen(product));
+        }
+    }
+
+public:
+    char product[PRODUCT_LENGTH];
+    int32_t client_count;
+    int32_t user_count;
+};
+
+struct ConnByProducts
+{
+    ConnByProducts():number(0)
+    {
+
+    }
+
+    uint32_t number;
+    ConnByProduct connByProducts[0];
+};
+
 typedef struct SvrInfo {
     char ip[32];
     uint32_t port;
@@ -103,6 +140,7 @@ typedef struct SvrInfo {
     uint32_t credibility;
     ServerRole svr_role;
     long long timestamp;
+    ConnByProducts connByProducts;
 } SVR_INFO;
 
 typedef struct HostSession {
