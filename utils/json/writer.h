@@ -18,7 +18,7 @@
 
 // Disable warning C4251: <data member>: <type> needs to have dll-interface to
 // be used by...
-#if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
+#if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING) && defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4251)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
@@ -164,6 +164,12 @@ Usage:
  * \sa Reader, Value
  * \deprecated Use StreamWriterBuilder.
  */
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable:4996) // Deriving from deprecated class
+#endif
+
     class JSONCPP_DEPRECATED("Use StreamWriterBuilder instead") JSON_API FastWriter : public Writer {
     public:
         FastWriter();
@@ -193,7 +199,11 @@ Usage:
         bool omitEndingLineFeed_;
     };
 
-/** \brief Writes a Value in <a HREF="http://www.json.org">JSON</a> format in a
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
+    /** \brief Writes a Value in <a HREF="http://www.json.org">JSON</a> format in a
  *human friendly way.
  *
  * The rules for line break and indent are as follow:
@@ -217,6 +227,12 @@ Usage:
  * \sa Reader, Value, Value::setComment()
  * \deprecated Use StreamWriterBuilder.
  */
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable:4996) // Deriving from deprecated class
+#endif
+
     class JSONCPP_DEPRECATED("Use StreamWriterBuilder instead") JSON_API StyledWriter : public Writer {
     public:
         StyledWriter();
@@ -265,7 +281,11 @@ Usage:
         bool addChildValues_;
     };
 
-/** \brief Writes a Value in <a HREF="http://www.json.org">JSON</a> format in a
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
+
+    /** \brief Writes a Value in <a HREF="http://www.json.org">JSON</a> format in a
  human friendly way,
      to a stream rather than to a string.
  *
@@ -290,6 +310,12 @@ Usage:
  * \sa Reader, Value, Value::setComment()
  * \deprecated Use StreamWriterBuilder.
  */
+
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable:4996) // Deriving from deprecated class
+#endif
+
     class JSONCPP_DEPRECATED("Use StreamWriterBuilder instead") JSON_API StyledStreamWriter {
     public:
         /**
@@ -343,6 +369,10 @@ Usage:
         bool addChildValues_ : 1;
         bool indented_ : 1;
     };
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 #if defined(JSON_HAS_INT64)
 
