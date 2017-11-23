@@ -42,7 +42,6 @@
 #define COMMON_AGENT_CHANNEL_ACK   0x10000604    //AGENT安全通道建立确认
 #define COMMON_AGENT_LOGOUT_REQ    0x10000606    //AGENT主动退出请求
 
-
 //UUID
 struct UUID_s {
     union {

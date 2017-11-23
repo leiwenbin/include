@@ -28,7 +28,7 @@
 
 #define COMMON_CLIENT_EXCEPTION_REQ     0x10000110    //客户端再上线之前异常连接断开的消息
 
-#define COMMON_MSG_STATUS_REQ       0x10000111    //在线广播消息回执状态码?
+#define COMMON_RadioMSG_STATUS_REQ       0x10000111    //在线广播消息回执状态码
 
 #define COMMON_CONSLOE_LOGIN_REQ        0x10000301    //CONSOLE控制台服务登录请求
 #define COMMON_CONSLOE_LOGIN_RET        0x10000303    //CONSOLE控制台服务登录返回
@@ -92,39 +92,6 @@ typedef struct PushMsg {
     char msg_buf[0];
 } PUSH_MSG;
 
-struct ConnByProduct
-{
-public:
-    ConnByProduct():product({0}),client_count(0),user_count(0)
-    {
-
-    }
-    ConnByProduct(const char*product,int32_t client_count,int32_t user_count)
-            :product({0}),client_count(client_count),user_count(user_count)
-    {
-        if(product != NULL)
-        {
-            memcpy(this->product,product,strlen(product));
-        }
-    }
-
-public:
-    char product[PRODUCT_LENGTH];
-    int32_t client_count;
-    int32_t user_count;
-};
-
-struct ConnByProducts
-{
-    ConnByProducts():number(0)
-    {
-
-    }
-
-    uint32_t number;
-    ConnByProduct connByProducts[0];
-};
-
 typedef struct SvrInfo {
     char ip[32];
     uint32_t port;
@@ -140,7 +107,6 @@ typedef struct SvrInfo {
     uint32_t credibility;
     ServerRole svr_role;
     long long timestamp;
-    ConnByProducts connByProducts;
 } SVR_INFO;
 
 typedef struct HostSession {
@@ -214,9 +180,98 @@ typedef struct UserLogoutParams {
     int unbindStatus;
 } USER_LOGOUT_PARAMS;
 
+
 typedef struct OfflineMsgParams {
     TARGET target;
 } OFFLINE_MSG_PARAMS;
+
+struct ConnByProduct
+{
+public:
+    ConnByProduct():product({0}),client_count(0),user_count(0)
+    {
+
+    }
+    ConnByProduct(const char*product,int32_t client_count,int32_t user_count)
+            :product({0}),client_count(client_count),user_count(user_count)
+    {
+        if(product != NULL)
+        {
+            memcpy(this->product,product,strlen(product));
+        }
+    }
+
+public:
+    char product[PRODUCT_LENGTH];
+    int32 client_count;
+    int32 user_count;
+};
+
+struct ConnByProducts
+{
+    ConnByProducts():number(0)
+    {
+
+    }
+
+    uint32_t number;  //需要发送的产品线的数目
+    ConnByProduct connByProducts[0];
+};
+
+struct RadioMsgData
+{
+    RadioMsgData(int32_t qps,const char* in_svr_key, const char* business_type,int32_t command_type, TARGET_TYPE target_type)
+            :qps(qps),svr_key({0}), business_type({0}),command_type(command_type),target_type(target_type)
+    {
+        {
+            size_t len = strlen(in_svr_key);
+            len = len > 63 ? 63 : len;
+            memcpy(this->svr_key, in_svr_key, len);
+        }
+
+        {
+            size_t len = strlen(business_type);
+            len = len > 63?63:len;
+            memcpy(this->business_type,business_type,len);
+        }
+    }
+
+    int32_t qps;
+    char svr_key[64];
+    char business_type[64];
+    int32_t command_type;
+    TARGET_TYPE target_type;
+};
+
+enum BroadCast_CommandType
+{
+    BROADCAST = 0,
+    MULTICAST_USER_ONLINE,
+    MULTICAST_USER_OFFLINE
+};
+
+struct RadioMsg_status
+{
+    char svr_key[64];
+    int is_finished;
+    int64 timeStamp;
+    MSG_ERROR msg_error;
+    TARGETS targets;
+};
+
+struct BroadCastMsgParams_ret
+{
+    PUSH_MSG pPushMsg;
+    Target radioTarget;
+    RadioMsg_status pRadioMsg;
+};
+
+struct BroadCastMsgParams_req
+{
+    RadioMsgData radioMsgData;
+    PUSH_MSG pushMsg;
+};
+
 
 #pragma pack(pop)
 
