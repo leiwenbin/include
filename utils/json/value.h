@@ -199,6 +199,9 @@ namespace Json {
         typedef Json::LargestUInt LargestUInt;
         typedef Json::ArrayIndex ArrayIndex;
 
+        // Required for boost integration, e. g. BOOST_TEST
+        typedef std::string value_type;
+
         static const Value& null;  ///< We regret this reference to a global instance; prefer the simpler Value().
         static const Value& nullRef;  ///< just a kludge for binary-compatibility; same as null
         static Value const& nullSingleton(); ///< Prefer this to null or nullRef.
@@ -598,14 +601,12 @@ namespace Json {
         /// \pre type() is objectValue or nullValue
         /// \post type() is unchanged
         /// \deprecated
-        JSONCPP_DEPRECATED("")
-        Value removeMember(const char* key);
+        void removeMember(const char* key);
 
         /// Same as removeMember(const char*)
         /// \param key may contain embedded nulls.
         /// \deprecated
-        JSONCPP_DEPRECATED("")
-        Value removeMember(const JSONCPP_STRING& key);
+        void removeMember(const JSONCPP_STRING& key);
 
         /// Same as removeMember(const char* begin, const char* end, Value* removed),
         /// but 'key' is null-terminated.
