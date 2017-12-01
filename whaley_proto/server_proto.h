@@ -204,8 +204,8 @@ public:
 
 public:
     char product[PRODUCT_LENGTH];
-    int32 client_count;
-    int32 user_count;
+    int32_t client_count;
+    int32_t user_count;
 };
 
 struct ConnByProducts
@@ -255,7 +255,7 @@ struct RadioMsg_status
 {
     char svr_key[64];
     int is_finished;
-    int64 timeStamp;
+    int64_t timeStamp;
     MSG_ERROR msg_error;
     TARGETS targets;
 };
