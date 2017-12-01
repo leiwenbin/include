@@ -139,7 +139,8 @@ typedef enum MsgError {
     SEND_BEGIN,             //在线消息开始推送
     CREATE_FAILED,          //消息推送任务创建失败
     DUPLICATE_DISCARD,      //重复消息过滤
-    OFFLINE_SEND_BEGIN      //离线消息开始推送
+    OFFLINE_SEND_BEGIN,      //离线消息开始推送
+    TOO_MANY_RETRIES        //消息重发次数过多
 } MSG_ERROR;
 
 typedef struct MsgException {
