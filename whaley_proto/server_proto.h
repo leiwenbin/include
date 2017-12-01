@@ -12,6 +12,7 @@
 #pragma pack(1)
 
 #include "transport_proto.h"
+#include <string.h>
 
 #define COMMON_SERVER_LOGIN_REQ         0x10000100    //服务器登录请求
 #define COMMON_SERVER_LOGIN_RET         0x10000101    //服务器登录返回
