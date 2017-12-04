@@ -189,21 +189,6 @@ typedef struct OfflineMsgParams {
 
 struct ConnByProduct
 {
-public:
-    ConnByProduct():product({0}),client_count(0),user_count(0)
-    {
-
-    }
-    ConnByProduct(const char*product,int32_t client_count,int32_t user_count)
-            :product({0}),client_count(client_count),user_count(user_count)
-    {
-        if(product != NULL)
-        {
-            memcpy(this->product,product,strlen(product));
-        }
-    }
-
-public:
     char product[PRODUCT_LENGTH];
     int32_t client_count;
     int32_t user_count;
@@ -211,33 +196,12 @@ public:
 
 struct ConnByProducts
 {
-    ConnByProducts():number(0)
-    {
-
-    }
-
     uint32_t number;  //需要发送的产品线的数目
     ConnByProduct connByProducts[0];
 };
 
 struct RadioMsgData
 {
-    RadioMsgData(int32_t qps,const char* in_svr_key, const char* business_type,int32_t command_type, TARGET_TYPE target_type)
-            :qps(qps),svr_key({0}), business_type({0}),command_type(command_type),target_type(target_type)
-    {
-        {
-            size_t len = strlen(in_svr_key);
-            len = len > 63 ? 63 : len;
-            memcpy(this->svr_key, in_svr_key, len);
-        }
-
-        {
-            size_t len = strlen(business_type);
-            len = len > 63?63:len;
-            memcpy(this->business_type,business_type,len);
-        }
-    }
-
     int32_t qps;
     char svr_key[64];
     char business_type[64];
