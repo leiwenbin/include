@@ -187,6 +187,22 @@ typedef struct OfflineMsgParams {
     TARGET target;
 } OFFLINE_MSG_PARAMS;
 
+struct MsgStatusParams
+{
+    char msg_id[64];
+    Target target;
+    MSG_ERROR msg_error;
+};
+
+struct RadioMsgStatusParams
+{
+    char msg_id[64];
+    Target target;
+    int32_t is_finished;
+    char svr_key[64];
+};
+
+
 struct ConnByProduct
 {
     char product[PRODUCT_LENGTH];
