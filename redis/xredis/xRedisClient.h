@@ -116,6 +116,18 @@ typedef struct xRedisContext_ {
     void* conn;
 } xRedisContext;
 
+typedef enum _SET_TYPE_ {
+    TYPE_NONE = 0,
+    PX = 1,
+    EX = 2
+} SETPXEX;
+
+typedef enum _SET_TYPE_NXEX_ {
+    TNXXX_NONE = 0,
+    NX = 1,
+    XX = 2
+} SETNXXX;
+
 typedef enum _BIT_OP_ {
     AND = 0,
     OR = 1,
@@ -173,7 +185,7 @@ public:
 
     void FreexRedisContext(xRedisContext* ctx);
 
-    bool ConnectRedisCache(const RedisNode* redisnodelist, unsigned int hashbase, unsigned int cachetype);
+    bool ConnectRedisCache(const RedisNode* redisnodelist, unsigned int nodecount, unsigned int hashbase, unsigned int cachetype);
 
 public:
 
@@ -219,6 +231,8 @@ public:
     /* SET         */  bool set(const RedisDBIdx& dbi, const std::string& key, const std::string& value);
 
     /* SET         */  bool set(const RedisDBIdx& dbi, const std::string& key, const char* value, int len, int second = 0);
+
+    /* SET         */  bool set(const RedisDBIdx& dbi, const std::string& key, const std::string& value, SETPXEX pxex = TYPE_NONE, int expiretime = 0, SETNXXX nxxx = TNXXX_NONE);
 
     /* SETBIT      */  bool setbit(const RedisDBIdx& dbi, const std::string& key, int offset, int64_t newbitValue, int64_t oldbitValue);
 
