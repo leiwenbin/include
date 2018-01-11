@@ -60,7 +60,7 @@ namespace mdf {
         void Stop();        //关闭所有线程
         //接受任务
         //method为声明为void* fun(void*)的成员函数
-        void Accept(std::string& strIndex, MethodPointer method, void* pObj, void* pParam);
+        void Accept(const std::string& strIndex, MethodPointer method, void* pObj, void* pParam);
 
         //接受任务
         //fun为声明为void* fun(void*)的函数
