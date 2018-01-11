@@ -190,18 +190,10 @@ typedef struct OfflineMsgParams {
 struct MsgStatusParams
 {
     char msg_id[64];
+    int64_t timestamp;
     Target target;
     MSG_ERROR msg_error;
 };
-
-struct RadioMsgStatusParams
-{
-    char msg_id[64];
-    Target target;
-    int32_t is_finished;
-    char svr_key[64];
-};
-
 
 struct ConnByProduct
 {
