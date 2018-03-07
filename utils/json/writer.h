@@ -99,13 +99,14 @@ Usage:
         /** Configuration of this builder.
           Available settings (case-sensitive):
           - "commentStyle": "None" or "All"
-          - "indentation":  "<anything>"
+          - "indentation":  "<anything>".
+            - Setting this to an empty string also omits newline characters.
           - "enableYAMLCompatibility": false or true
             - slightly change the whitespace around colons
           - "dropNullPlaceholders": false or true
             - Drop the "null" string from the writer's output for nullValues.
               Strictly speaking, this is not valid JSON. But when the output is being
-              fed to a browser's Javascript, it makes for smaller output and the
+              fed to a browser's JavaScript, it makes for smaller output and the
               browser can handle the output just fine.
           - "useSpecialFloats": false or true
             - If true, outputs non-finite floating point values in the following way:
@@ -160,7 +161,7 @@ Usage:
  *
  * The JSON document is written in a single line. It is not intended for 'human'
  *consumption,
- * but may be usefull to support feature such as RPC where bandwith is limited.
+ * but may be useful to support feature such as RPC where bandwidth is limited.
  * \sa Reader, Value
  * \deprecated Use StreamWriterBuilder.
  */
@@ -180,7 +181,7 @@ Usage:
 
         /** \brief Drop the "null" string from the writer's output for nullValues.
          * Strictly speaking, this is not valid JSON. But when the output is being
-         * fed to a browser's Javascript, it makes for smaller output and the
+         * fed to a browser's JavaScript, it makes for smaller output and the
          * browser can handle the output just fine.
          */
         void dropNullPlaceholders();
@@ -194,7 +195,7 @@ Usage:
         void writeValue(const Value& value);
 
         JSONCPP_STRING document_;
-        bool yamlCompatiblityEnabled_;
+        bool yamlCompatibilityEnabled_;
         bool dropNullPlaceholders_;
         bool omitEndingLineFeed_;
     };
@@ -251,7 +252,7 @@ Usage:
 
         void writeArrayValue(const Value& value);
 
-        bool isMultineArray(const Value& value);
+        bool isMultilineArray(const Value& value);
 
         void pushValue(const JSONCPP_STRING& value);
 
@@ -339,7 +340,7 @@ Usage:
 
         void writeArrayValue(const Value& value);
 
-        bool isMultineArray(const Value& value);
+        bool isMultilineArray(const Value& value);
 
         void pushValue(const JSONCPP_STRING& value);
 
