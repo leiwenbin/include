@@ -1,4 +1,4 @@
-﻿// EpollMonitor.h: interface for the EpollMonitor class.
+// EpollMonitor.h: interface for the EpollMonitor class.
 //
 //////////////////////////////////////////////////////////////////////
 

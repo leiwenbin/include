@@ -1,4 +1,4 @@
-﻿// STEpoll.h: interface for the STEpoll class.
+// STEpoll.h: interface for the STEpoll class.
 //
 //////////////////////////////////////////////////////////////////////
 

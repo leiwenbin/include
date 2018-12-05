@@ -1,4 +1,4 @@
-﻿// NetEventMonitor.h: interface for the NetEventMonitor class.
+// NetEventMonitor.h: interface for the NetEventMonitor class.
 //
 //////////////////////////////////////////////////////////////////////
 

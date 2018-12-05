@@ -1,4 +1,4 @@
-﻿// STNetConnect.h: interface for the STNetConnect class.
+// STNetConnect.h: interface for the STNetConnect class.
 //
 //////////////////////////////////////////////////////////////////////
 

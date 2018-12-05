@@ -1,4 +1,4 @@
-﻿#ifndef TOOL_C_TASK_H
+#ifndef TOOL_C_TASK_H
 #define TOOL_C_TASK_H
 
 #include "Executor.h"

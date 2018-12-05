@@ -1,4 +1,4 @@
-﻿#ifndef MDF_ATOM_H
+#ifndef MDF_ATOM_H
 #define MDF_ATOM_H
 
 #include "FixLengthInt.h"

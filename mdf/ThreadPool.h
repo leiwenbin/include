@@ -1,4 +1,4 @@
-﻿#ifndef TOOL_C_THREAD_POOL_IMP_H
+#ifndef TOOL_C_THREAD_POOL_IMP_H
 #define TOOL_C_THREAD_POOL_IMP_H
 /*
  线程池类

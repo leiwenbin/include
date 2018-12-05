@@ -1,4 +1,4 @@
-﻿// Executor.h: interface for the Executor class.
+// Executor.h: interface for the Executor class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

@@ -1,4 +1,4 @@
-﻿#ifndef SHAREOBJECT_H
+#ifndef SHAREOBJECT_H
 #define SHAREOBJECT_H
 
 #include "FixLengthInt.h"

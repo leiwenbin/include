@@ -1,4 +1,4 @@
-﻿#ifndef FAST_MEMORY_POOL_H
+#ifndef FAST_MEMORY_POOL_H
 #define FAST_MEMORY_POOL_H
 
 #include "FixLengthInt.h"

@@ -1,4 +1,4 @@
-﻿// ConfigFile.h: interface for the ConfigFile class.
+// ConfigFile.h: interface for the ConfigFile class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

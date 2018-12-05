@@ -1,4 +1,4 @@
-﻿#ifndef HOST_DATA_H
+#ifndef HOST_DATA_H
 #define HOST_DATA_H
 
 #include "../../../include/mdf/Lock.h"

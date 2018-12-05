@@ -1,4 +1,4 @@
-﻿// NetConnect.h: interface for the NetConnect class.
+// NetConnect.h: interface for the NetConnect class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

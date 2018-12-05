@@ -1,4 +1,4 @@
-﻿#ifndef __SINGLETON_H__
+#ifndef __SINGLETON_H__
 #define __SINGLETON_H__
 
 namespace mdf {
@@ -20,6 +20,7 @@ namespace mdf {
 
     private:
         Singleton& operator=(const Singleton&) {
+            return Singleton;
         }
 
         Singleton(const Singleton&) {

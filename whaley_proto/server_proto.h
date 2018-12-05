@@ -187,29 +187,31 @@ typedef struct OfflineMsgParams {
     TARGET target;
 } OFFLINE_MSG_PARAMS;
 
-struct MsgStatusParams
-{
+typedef struct MsgStatusParams {
     char msg_id[64];
     int64_t timestamp;
     Target target;
     MSG_ERROR msg_error;
-};
+} MSG_STATUS_PARAMS;
 
-struct ConnByProduct
-{
+typedef struct MsgRetryParams {
+    char msg_id[64];
+    int64_t timestamp;
+    Target target;
+} MSG_RETRY_PARAMS;
+
+struct ConnByProduct {
     char product[PRODUCT_LENGTH];
     int32_t client_count;
     int32_t user_count;
 };
 
-struct ConnByProducts
-{
+struct ConnByProducts {
     uint32_t number;  //需要发送的产品线的数目
     ConnByProduct connByProducts[0];
 };
 
-struct RadioMsgData
-{
+struct RadioMsgData {
     int32_t qps;
     char svr_key[64];
     char business_type[64];
@@ -217,15 +219,13 @@ struct RadioMsgData
     TARGET_TYPE target_type;
 };
 
-enum BroadCast_CommandType
-{
+enum BroadCast_CommandType {
     BROADCAST = 0,
     MULTICAST_USER_ONLINE,
     MULTICAST_USER_OFFLINE
 };
 
-struct RadioMsg_status
-{
+struct RadioMsg_status {
     char svr_key[64];
     int is_finished;
     int64_t timeStamp;
@@ -233,15 +233,13 @@ struct RadioMsg_status
     TARGETS targets;
 };
 
-struct BroadCastMsgParams_ret
-{
+struct BroadCastMsgParams_ret {
     PUSH_MSG pPushMsg;
     Target radioTarget;
     RadioMsg_status pRadioMsg;
 };
 
-struct BroadCastMsgParams_req
-{
+struct BroadCastMsgParams_req {
     RadioMsgData radioMsgData;
     PUSH_MSG pushMsg;
 };

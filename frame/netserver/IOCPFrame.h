@@ -1,4 +1,4 @@
-﻿// IOCPFrame.h: interface for the IOCPFrame class.
+// IOCPFrame.h: interface for the IOCPFrame class.
 //
 //////////////////////////////////////////////////////////////////////
 

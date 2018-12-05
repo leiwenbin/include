@@ -1,4 +1,4 @@
-﻿// SRWLock.h: interface for the SRWLock class.
+// SRWLock.h: interface for the SRWLock class.
 //
 //////////////////////////////////////////////////////////////////////
 

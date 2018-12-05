@@ -1,4 +1,4 @@
-﻿// Queue.h: interface for the Queue class.
+// Queue.h: interface for the Queue class.
 //
 //	1对n lock free队列
 //	并发模式：1读n写、n读1写

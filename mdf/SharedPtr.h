@@ -1,4 +1,4 @@
-﻿// SharedPtr.h: interface for the SharedPtr class.
+// SharedPtr.h: interface for the SharedPtr class.
 //
 //////////////////////////////////////////////////////////////////////
 

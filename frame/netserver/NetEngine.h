@@ -1,4 +1,4 @@
-﻿#ifndef MDF_NET_ENGINE_H
+#ifndef MDF_NET_ENGINE_H
 #define MDF_NET_ENGINE_H
 
 #include "../../../include/mdf/Socket.h"

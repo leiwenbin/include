@@ -1,4 +1,4 @@
-﻿#ifndef MDF_MEMORY_POOL_H
+#ifndef MDF_MEMORY_POOL_H
 #define MDF_MEMORY_POOL_H
 
 #include "FixLengthInt.h"

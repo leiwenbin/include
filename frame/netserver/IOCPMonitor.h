@@ -1,4 +1,4 @@
-﻿// IOCPMonitor.h: interface for the IOCPMonitor class.
+// IOCPMonitor.h: interface for the IOCPMonitor class.
 //
 //////////////////////////////////////////////////////////////////////
 

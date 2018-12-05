@@ -1,4 +1,4 @@
-﻿// IOBuffer.h: interface for the IOBuffer class.
+// IOBuffer.h: interface for the IOBuffer class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

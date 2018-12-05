@@ -1,4 +1,4 @@
-﻿// Thread.h: interface for the Thread class.
+// Thread.h: interface for the Thread class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

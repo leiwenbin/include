@@ -1,4 +1,4 @@
-﻿#ifndef MDF_NETHOST_H
+#ifndef MDF_NETHOST_H
 #define MDF_NETHOST_H
 
 #include "../../../include/mdf/FixLengthInt.h"

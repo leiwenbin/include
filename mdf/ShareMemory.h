@@ -1,4 +1,4 @@
-﻿// ShareMemory.h: interface for the ShareMemory class.
+// ShareMemory.h: interface for the ShareMemory class.
 //
 //////////////////////////////////////////////////////////////////////
 

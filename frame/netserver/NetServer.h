@@ -1,4 +1,4 @@
-﻿#ifndef MDF_C_NET_SERVER_H
+#ifndef MDF_C_NET_SERVER_H
 #define MDF_C_NET_SERVER_H
 
 #include "../../../include/mdf/Thread.h"

@@ -1,4 +1,4 @@
-﻿// FinishedTime.h: interface for the FinishedTime class.
+// FinishedTime.h: interface for the FinishedTime class.
 //
 //////////////////////////////////////////////////////////////////////
 /*

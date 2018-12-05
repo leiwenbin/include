@@ -1,4 +1,4 @@
-﻿//  Copyright [2012] <xiaoxie820125@sina.com>
+//  Copyright [2012] <xiaoxie820125@sina.com>
 
 #ifndef MDF_FIXLENGTHINT_H
 #define MDF_FIXLENGTHINT_H

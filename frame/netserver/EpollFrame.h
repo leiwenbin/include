@@ -1,4 +1,4 @@
-﻿// EpollFrame.h: interface for the EpollFrame class.
+// EpollFrame.h: interface for the EpollFrame class.
 //
 //////////////////////////////////////////////////////////////////////
 
