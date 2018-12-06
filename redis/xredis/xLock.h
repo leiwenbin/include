@@ -1,6 +1,6 @@
 /*
  * ----------------------------------------------------------------------------
- * Copyright (c) 2012-2013, xSky <guozhw at gmail dot com>
+ * Copyright (c) 2012-2013, Leiwenbin
  * All rights reserved.
  * Distributed under GPL license.
  * ----------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public:
         pthread_mutexattr_t attr;
         pthread_mutexattr_init(&attr);
         pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-        int ret = pthread_mutex_init(&mMutex, &attr);
+        int32_t ret = pthread_mutex_init(&mMutex, &attr);
         if (ret != 0) {
             printf("pthread_mutex_init error %d \n\r", ret);
         }

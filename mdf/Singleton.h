@@ -20,7 +20,6 @@ namespace mdf {
 
     private:
         Singleton& operator=(const Singleton&) {
-            return Singleton;
         }
 
         Singleton(const Singleton&) {
