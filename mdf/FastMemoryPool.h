@@ -46,10 +46,10 @@ namespace mdf {
         FastMemoryPool() {
         }
 
-        FastMemoryPool(const FastMemoryPool &right) {
+        FastMemoryPool(const FastMemoryPool& right) {
         }
 
-        FastMemoryPool &operator=(const FastMemoryPool &right) {
+        FastMemoryPool& operator=(const FastMemoryPool& right) {
             return *this;
         }
 

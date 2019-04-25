@@ -111,7 +111,7 @@ namespace mdf {
         bool AddSend(int socket, char* pData, unsigned short dataSize);
 
     protected:
-        int GetError(int sock, WSAOVERLAPPED* pWSAOVERLAPPED);
+        static int GetError(int sock, WSAOVERLAPPED* pWSAOVERLAPPED);
 
     private:
         int m_listenSocket;

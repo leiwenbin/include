@@ -42,6 +42,7 @@ namespace mdf {
 
     private:
         bool OpenRunLog();
+
         bool CreateFreeDir(const char* dir); //创建自由（最大权限）目录
         void RenameMaxLog(); //重名超大日志
         void FindDelLog(char* lpPath, int maxExistDay);

@@ -50,10 +50,10 @@ class EpollMonitor : public NetEventMonitor {
 		bool WaitConnect( void *eventArray, int &count, int timeout );
 		bool WaitData( void *eventArray, int &count, int timeout );
 		bool WaitSendable( void *eventArray, int &count, int timeout );
-		bool IsStop( int64 connectId );
+		static bool IsStop( int64 connectId );
 
 	protected:
-		void SheildSigPipe(); //屏蔽SIGPIPE信号，避免进程被该信号关闭
+		static void ShieldSigPipe(); //屏蔽SIGPIPE信号，避免进程被该信号关闭
 		bool DelMonitorIn( int sock );
 		bool DelMonitorOut( int sock );
 

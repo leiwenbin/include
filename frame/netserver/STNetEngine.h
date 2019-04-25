@@ -158,7 +158,7 @@ namespace mdf {
         void Select();    //检查向外发起链接的结果
         void* ConnectFailed(STNetEngine::SVR_CONNECT* pSvr);
 
-        STNetEngine::ConnectResult AsycConnect(int svrSock, const char* lpszHostAddress, unsigned short nHostPort);
+        static STNetEngine::ConnectResult AsycConnect(int svrSock, const char* lpszHostAddress, unsigned short nHostPort);
 
         bool EpollConnect(SVR_CONNECT** clientList, int clientCount);    //clientCount个连接全部收到结果，返回true,否则返回false
         bool SelectConnect(SVR_CONNECT** clientList, int clientCount);    //clientCount个连接全部收到结果，返回true,否则返回false

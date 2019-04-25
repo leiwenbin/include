@@ -166,15 +166,15 @@ namespace mdf {
             success = 0, waitReulst = 1, cannotCreateSocket = 2, invalidParam = 3, faild = 4,
         };
 
-        NetEngine::ConnectResult ConnectOtherServer(const char* ip, int port, int& svrSock); //异步连接一个服务,立刻成功返回true，否则返回false，等待select结果
+        static NetEngine::ConnectResult ConnectOtherServer(const char* ip, int port, int& svrSock); //异步连接一个服务,立刻成功返回true，否则返回false，等待select结果
         bool ConnectAll(); //连接所有注册的服务，已连接的会自动跳过
         void SetServerClose(NetConnect* pConnect); //设置已连接的服务为关闭状态
         const char* GetInitError(); //取得启动错误信息
         void* RemoteCall ConnectThread(void*); //异步链接线程
-        NetEngine::ConnectResult AsycConnect(int svrSock, const char* lpszHostAddress, unsigned short nHostPort);
+        static NetEngine::ConnectResult AsyncConnect(int svrSock, const char* lpszHostAddress, unsigned short nHostPort);
 
         bool EpollConnect(SVR_CONNECT** clientList, int clientCount); //clientCount个连接全部收到结果，返回true,否则返回false
-        bool SelectConnect(SVR_CONNECT** clientList, int clientCount); //clientCount个连接全部收到结果，返回true,否则返回false
+        static bool SelectConnect(SVR_CONNECT** clientList, int clientCount); //clientCount个连接全部收到结果，返回true,否则返回false
         bool ConnectIsFinished(SVR_CONNECT* pSvr, bool readable, bool sendable, int api, int errorCode); //链接已完成返回true（不表示成功，失败也是完成，外部不需要处理，成功失败在内部已处理），否则返回false
 
     public:
