@@ -380,13 +380,17 @@ public:
     /* ZINCRBY     */  bool zincrby(const RedisDBIdx& dbi, const std::string& key, const double& increment, const std::string& member, std::string& value);
     /* ZINTERSTORE */
     /* ZRANGE      */  bool zrange(const RedisDBIdx& dbi, const std::string& key, int32_t start, int32_t end, VALUES& vValues, bool withscore = false);
-    /* ZRANGEBYSCORE*/
+
+    /* ZRANGEBYSCORE*/ bool zrangebyscore(const RedisDBIdx& dbi, const std::string& key, const std::string& min, const std::string& max, VALUES& vValues, bool withscore = false, LIMIT* limit = NULL);
+
     /* ZRANK       */  bool zrank(const RedisDBIdx& dbi, const std::string& key, const std::string& member, int64_t& rank);
 
     /* ZREM        */  bool zrem(const RedisDBIdx& dbi, const KEY& key, const VALUES& vmembers, int64_t& num);
 
     /* ZREMRANGEBYRANK  */  bool zremrangebyrank(const RedisDBIdx& dbi, const std::string& key, int32_t start, int32_t stop, int64_t& num);
-    /* ZREMRANGEBYSCORE */
+
+    /* ZREMRANGEBYSCORE */  bool zremrangebyscore(const RedisDBIdx& dbi, const KEY& key, double min, double max, int64_t& count);
+
     /* ZREVRANGE        */  bool zrevrange(const RedisDBIdx& dbi, const std::string& key, int32_t start, int32_t end, VALUES& vValues, bool withscore = false);
     /* ZREVRANGEBYSCORE */
     /* ZREVRANK         */  bool zrevrank(const RedisDBIdx& dbi, const std::string& key, const std::string& member, int64_t& rank);
