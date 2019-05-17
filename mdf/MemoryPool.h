@@ -77,7 +77,7 @@ namespace mdf {
         MemoryPool* GetMemoryBlock(unsigned char* pObj);
 
         //取得地址指向内存在块中序号(链表方法)
-        unsigned short GetMemoryIndex(unsigned char* pObj);
+        static unsigned short GetMemoryIndex(unsigned char* pObj);
 
     };
 

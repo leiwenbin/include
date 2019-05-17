@@ -58,6 +58,84 @@ namespace mdf {
     class NetEngine {
         friend class NetServer;
 
+    public:
+        /**
+         * 构造函数,绑定服务器与通信策略
+         *
+         */
+        NetEngine();
+
+        virtual ~NetEngine();
+
+        //设置平均连接数
+        void SetAverageConnectCount(int count);
+
+        //设置最大连接数
+        void SetMaxConnectCount(int count);
+
+        //设置心跳时间
+        void SetHeartTime(int nSecond);
+
+        //设置防空连接时间
+        void SetIdleTime(int nSecond);
+
+        //设置发生业务行为的限制时间
+        void SetBehaviorTime(int nSecond);
+
+        //设置网络IO线程数量
+        void SetIOThreadCount(int nCount);
+
+        //设置工作线程数
+        void SetWorkThreadCount(int nCount);
+
+        //设置工作线程启动回调函数
+        void SetOnWorkStart(MethodPointer method, void* pObj, void* pParam);
+
+        void SetOnWorkStart(FuntionPointer fun, void* pParam);
+
+        //打开TCP_NODELAY
+        void OpenNoDelay();
+
+        /**
+         * 开始
+         * 成功返回true，失败返回false
+         */
+        bool Start();
+
+        //停止
+        void Stop();
+
+        //等待停止
+        void WaitStop();
+
+        //关闭一个网络对象,通信层发现网络对象关闭连接时，派生类调用接口
+        void CloseConnect(int64 connectId);
+
+        //监听一个端口
+        bool Listen(int port);
+
+        /*
+         连接一个服务
+         reConnectTime < 0表示断开后不重新自动链接
+         */
+        bool Connect(const char* ip, int port, void* pSvrInfo, int reConnectTime);
+
+        //获取当前连接数
+        uint32 GetConnectionCount();
+
+        //获取网络IO线程池任务数
+        uint32 GetNetIOTaskCount();
+
+        //获取工作线程池任务数
+        uint32 GetWorkTaskCount();
+
+#ifndef WIN32
+        int m_hEPoll;
+        epoll_event* m_events;
+#endif
+        int64 m_nextConnectId;
+        bool m_noDelay; //开启TCP_NODELAY
+
     protected:
         std::string m_startError; //启动失败原因
         MemoryPool* m_pConnectPool; //NetConnect对象池
@@ -177,83 +255,6 @@ namespace mdf {
         static bool SelectConnect(SVR_CONNECT** clientList, int clientCount); //clientCount个连接全部收到结果，返回true,否则返回false
         bool ConnectIsFinished(SVR_CONNECT* pSvr, bool readable, bool sendable, int api, int errorCode); //链接已完成返回true（不表示成功，失败也是完成，外部不需要处理，成功失败在内部已处理），否则返回false
 
-    public:
-        /**
-         * 构造函数,绑定服务器与通信策略
-         *
-         */
-        NetEngine();
-
-        virtual ~NetEngine();
-
-        //设置平均连接数
-        void SetAverageConnectCount(int count);
-
-        //设置最大连接数
-        void SetMaxConnectCount(int count);
-
-        //设置心跳时间
-        void SetHeartTime(int nSecond);
-
-        //设置防空连接时间
-        void SetIdleTime(int nSecond);
-
-        //设置发生业务行为的限制时间
-        void SetBehaviorTime(int nSecond);
-
-        //设置网络IO线程数量
-        void SetIOThreadCount(int nCount);
-
-        //设置工作线程数
-        void SetWorkThreadCount(int nCount);
-
-        //设置工作线程启动回调函数
-        void SetOnWorkStart(MethodPointer method, void* pObj, void* pParam);
-
-        void SetOnWorkStart(FuntionPointer fun, void* pParam);
-
-        //打开TCP_NODELAY
-        void OpenNoDelay();
-
-        /**
-         * 开始
-         * 成功返回true，失败返回false
-         */
-        bool Start();
-
-        //停止
-        void Stop();
-
-        //等待停止
-        void WaitStop();
-
-        //关闭一个网络对象,通信层发现网络对象关闭连接时，派生类调用接口
-        void CloseConnect(int64 connectId);
-
-        //监听一个端口
-        bool Listen(int port);
-
-        /*
-         连接一个服务
-         reConnectTime < 0表示断开后不重新自动链接
-         */
-        bool Connect(const char* ip, int port, void* pSvrInfo, int reConnectTime);
-
-        //获取当前连接数
-        uint32 GetConnectionCount();
-
-        //获取网络IO线程池任务数
-        uint32 GetNetIOTaskCount();
-
-        //获取工作线程池任务数
-        uint32 GetWorkTaskCount();
-
-#ifndef WIN32
-        int m_hEPoll;
-        epoll_event* m_events;
-#endif
-        int64 m_nextConnectId;
-        bool m_noDelay; //开启TCP_NODELAY
     };
 
 } // namespace mdf

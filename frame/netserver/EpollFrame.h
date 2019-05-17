@@ -8,7 +8,7 @@
 #include "NetEngine.h"
 
 namespace mdf {
-    class EpollFrame : public NetEngine {
+class EpollFrame : public NetEngine {
     public:
         EpollFrame();
 
