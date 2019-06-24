@@ -2,7 +2,7 @@
 #define MDF_C_NET_SERVER_H
 
 #include "../../../include/mdf/Thread.h"
-#include "NetHost.h"
+#include "../../../include/frame/netserver/NetHost.h"
 
 namespace mdf {
     class NetEngine;

@@ -8,7 +8,7 @@
 #ifndef MDF_NETCONNECT_H
 #define MDF_NETCONNECT_H
 
-#include "NetHost.h"
+#include "../../../include/frame/netserver/NetHost.h"
 #include "../../../include/mdf/Lock.h"
 #include "../../../include/mdf/IOBuffer.h"
 #include "../../../include/mdf/Socket.h"

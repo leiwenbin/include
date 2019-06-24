@@ -10,7 +10,7 @@
 #include "../../../include/mdf/Queue.h"
 #include "../../../include/mdf/Signal.h"
 #include "../../../include/mdf/Lock.h"
-#include "NetEventMonitor.h"
+#include "../../../include/frame/netserver/NetEventMonitor.h"
 #include <map>
 #include <vector>
 
