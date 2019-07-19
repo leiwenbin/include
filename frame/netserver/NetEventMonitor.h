@@ -9,7 +9,7 @@
 #include "../../../include/mdf/FixLengthInt.h"
 #include <string>
 
-#define MAXPOLLSIZE 100000 //最大socket数
+#define MAXPOLLSIZE 100000 //最大并发socket数
 
 namespace mdf {
 

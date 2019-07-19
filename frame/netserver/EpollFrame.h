@@ -31,8 +31,6 @@ class EpollFrame : public NetEngine {
         void DataMonitor();
 
         void SendAbleMonitor();
-
-    public:
     };
 
 } //namespace mdf

@@ -26,6 +26,12 @@
 
 class Crypto {
 
+protected:
+    typedef enum SecurityLevel {
+        low = 0x01,
+        high
+    } SECURITY_LEVEL;
+
 public:
     Crypto();
 
@@ -33,13 +39,21 @@ public:
 
     int AesEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
+    int AesEncrypt256(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+
     int AesDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
+
+    int AesDecrypt256(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
 
     int WriteKeyToFile(FILE* fd, int key);
 
     int SetAesKey(unsigned char* aesKey, size_t aesKeyLen);
 
+    int SetAesKey256(unsigned char* aesKey, size_t aesKeyLen, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+
     int SetAesIv(unsigned char* aesIv, size_t aesIvLen);
+
+    int SetAesIv256(unsigned char* aesIv, size_t aesIvLen, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
 
     int RsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
@@ -60,6 +74,8 @@ public:
     int GenerateAesIv();
 
     int InitAes();
+
+    int InitAes256(SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
 
     int InitRsa(unsigned int bits);
 
@@ -82,6 +98,8 @@ private:
     RSA* rsaLocalPubKey;
     RSA* rsaLocalPriKey;
     unsigned int bits;
+
+    bool aesInitState;
 };
 
 #endif
