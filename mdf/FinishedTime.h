@@ -8,7 +8,7 @@
  int g_t = 0;
  void* CountTime( FinishedTime *pTime )
  {
- mdf::uint32 ut = pTime->UseTime();
+ unsigned int ut = pTime->UseTime();
  if ( ut > 1000 ) g_t++;
  printf( "XXX操作执行时间超过1000ms的次数为%d", gt );
  }
@@ -53,7 +53,7 @@ namespace mdf {
         ~FinishedTime();
 
         //经过的时间ms
-        mdf::uint32 UseTime();
+        unsigned int UseTime();
 
         //执行绑定的统计，用于提前统计
         void Finished();
@@ -62,7 +62,7 @@ namespace mdf {
     private:
         mdf::int64 m_start;
         mdf::int64 m_end;
-        mdf::uint32 m_useTime;
+        unsigned int m_useTime;
         mdf::Task m_task;
         bool m_finished;
     };

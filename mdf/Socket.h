@@ -197,7 +197,7 @@ namespace mdf {
          功能：阻塞方式设置
          参数：
          bWait		bool	[In]	TRUE阻塞，FALSE非阻塞
-         返回值：超时返回TRUE，否则返回FALSE
+         返回值：成功返回TRUE，否则返回FALSE
          */
         bool SetSockMode(bool bWait = false);
 

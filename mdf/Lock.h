@@ -5,6 +5,8 @@
 #ifndef MDF_LOCK_H
 #define MDF_LOCK_H
 
+#include "FixLengthInt.h"
+
 #ifdef WIN32
 #else
 

@@ -44,8 +44,8 @@ protected:
 
 private:
     THREAD_HIS m_threadData[MAX_THREAD_COUNT];
-    mdf::uint32 m_readCount;
-    mdf::uint32 m_writeCount;
+    unsigned int m_readCount;
+    unsigned int m_writeCount;
     mdf::Mutex m_lock;
     mdf::int32 m_waitWriteCount;
     mdf::Signal m_waitWrite;

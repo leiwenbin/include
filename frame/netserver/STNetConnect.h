@@ -119,6 +119,12 @@ namespace mdf {
         //取服务信息
         void* GetSvrInfo();
 
+        //获取接收缓冲
+        IOBuffer GetRecvBuffer();
+
+        //获取发送缓冲
+        IOBuffer GetSendBuffer();
+
     private:
         int m_useCount;
         //访问计数
