@@ -53,7 +53,10 @@ public:
         redisReply* reply;
     };
 
-    void Init(redisReply* r) { Reply.reply = r; }
+    void Init(redisReply* r) {
+        if (Reply.reply) { freeReplyObject((void*) Reply.reply); }
+        Reply.reply = r;
+    }
 
     int32_t type() const { return Reply.type(); }
 

@@ -39,21 +39,21 @@ public:
 
     int AesEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
-    int AesEncrypt256(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+    int AesEncrypt256(const unsigned char* msg, size_t msgLen, unsigned char** encMsg, SECURITY_LEVEL securityLevel = high);
 
     int AesDecrypt(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg);
 
-    int AesDecrypt256(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+    int AesDecrypt256(unsigned char* encMsg, size_t encMsgLen, unsigned char** decMsg, SECURITY_LEVEL securityLevel = high);
 
     int WriteKeyToFile(FILE* fd, int key);
 
-    int SetAesKey(unsigned char* aesKey, size_t aesKeyLen);
+    int SetAesKey(unsigned char* key, size_t keyLen);
 
-    int SetAesKey256(unsigned char* aesKey, size_t aesKeyLen, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+    int SetAesKey256(unsigned char* key, size_t keyLen, SECURITY_LEVEL securityLevel = high);
 
-    int SetAesIv(unsigned char* aesIv, size_t aesIvLen);
+    int SetAesIv(unsigned char* iv, size_t ivLen);
 
-    int SetAesIv256(unsigned char* aesIv, size_t aesIvLen, SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+    int SetAesIv256(unsigned char* iv, size_t ivLen, SECURITY_LEVEL securityLevel = high);
 
     int RsaEncrypt(const unsigned char* msg, size_t msgLen, unsigned char** encMsg);
 
@@ -75,7 +75,7 @@ public:
 
     int InitAes();
 
-    int InitAes256(SECURITY_LEVEL securityLevel = SECURITY_LEVEL::high);
+    int InitAes256(SECURITY_LEVEL securityLevel = high);
 
     int InitRsa(unsigned int bits);
 

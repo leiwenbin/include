@@ -1,4 +1,4 @@
-// Copyright 2007-2010 Baptiste Lepilleur
+// Copyright 2007-2010 Baptiste Lepilleur and The JsonCpp Authors
 // Distributed under MIT license, or public domain if desired and
 // recognized in your jurisdiction.
 // See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
@@ -15,31 +15,22 @@ namespace Json {
 // //////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////
 
-    ValueIteratorBase::ValueIteratorBase()
-            : current_(), isNull_(true) {
-    }
+    ValueIteratorBase::ValueIteratorBase() : current_() {}
 
     ValueIteratorBase::ValueIteratorBase(
             const Value::ObjectValues::iterator& current)
             : current_(current), isNull_(false) {}
 
-    Value& ValueIteratorBase::deref() const {
-        return current_->second;
-    }
+    Value& ValueIteratorBase::deref() { return current_->second; }
 
-    void ValueIteratorBase::increment() {
-        ++current_;
-    }
+    const Value& ValueIteratorBase::deref() const { return current_->second; }
 
-    void ValueIteratorBase::decrement() {
-        --current_;
-    }
+    void ValueIteratorBase::increment() { ++current_; }
+
+    void ValueIteratorBase::decrement() { --current_; }
 
     ValueIteratorBase::difference_type
     ValueIteratorBase::computeDistance(const SelfType& other) const {
-#ifdef JSON_USE_CPPTL_SMALLMAP
-        return other.current_ - current_;
-#else
         // Iterator for null value are initialized using the default
         // constructor, which initialize current_ to the default
         // std::map::iterator. As begin() and end() are two instance
@@ -60,7 +51,6 @@ namespace Json {
             ++myDistance;
         }
         return myDistance;
-#endif
     }
 
     bool ValueIteratorBase::isEqual(const SelfType& other) const {
@@ -92,12 +82,13 @@ namespace Json {
         return Value::UInt(-1);
     }
 
-    JSONCPP_STRING ValueIteratorBase::name() const {
+    String ValueIteratorBase::name() const {
         char const* keey;
         char const* end;
         keey = memberName(&end);
-        if (!keey) return JSONCPP_STRING();
-        return JSONCPP_STRING(keey, end);
+        if (!keey)
+            return String();
+        return String(keey, end);
     }
 
     char const* ValueIteratorBase::memberName() const {
@@ -108,8 +99,8 @@ namespace Json {
     char const* ValueIteratorBase::memberName(char const** end) const {
         const char* cname = (*current_).first.data();
         if (!cname) {
-            *end = NULL;
-            return NULL;
+            *end = nullptr;
+            return nullptr;
         }
         *end = cname + (*current_).first.length();
         return cname;
@@ -123,7 +114,7 @@ namespace Json {
 // //////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////
 
-    ValueConstIterator::ValueConstIterator() {}
+    ValueConstIterator::ValueConstIterator() = default;
 
     ValueConstIterator::ValueConstIterator(
             const Value::ObjectValues::iterator& current)
@@ -146,7 +137,7 @@ namespace Json {
 // //////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////
 
-    ValueIterator::ValueIterator() {}
+    ValueIterator::ValueIterator() = default;
 
     ValueIterator::ValueIterator(const Value::ObjectValues::iterator& current)
             : ValueIteratorBase(current) {}
@@ -156,8 +147,7 @@ namespace Json {
         throwRuntimeError("ConstIterator to Iterator should never be allowed.");
     }
 
-    ValueIterator::ValueIterator(const ValueIterator& other)
-            : ValueIteratorBase(other) {}
+    ValueIterator::ValueIterator(const ValueIterator& other) = default;
 
     ValueIterator& ValueIterator::operator=(const SelfType& other) {
         copy(other);
