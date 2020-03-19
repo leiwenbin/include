@@ -1,0 +1,12 @@
+acl_cpp
+boost
+boost.1.55.0
+crypto
+thrift
+whaley_proto
+qfsocket
+protobuf
+mysql_1.1.3
+include_7f
+.cproject
+.project
