@@ -71,9 +71,9 @@ namespace Json {
     public:
         Exception(String msg);
 
-        ~Exception() JSONCPP_NOEXCEPT override;
+        ~Exception() noexcept override;
 
-        char const* what() const JSONCPP_NOEXCEPT override;
+        char const* what() const noexcept override;
 
     protected:
         String msg_;
@@ -374,6 +374,8 @@ namespace Json {
 
         Value(bool value);
 
+        Value(std::nullptr_t ptr) = delete;
+
         Value(const Value& other);
 
         Value(Value&& other);
@@ -490,7 +492,7 @@ namespace Json {
         bool empty() const;
 
         /// Return !isNull()
-        JSONCPP_OP_EXPLICIT operator bool() const;
+        explicit operator bool() const;
 
         /// Remove all object members and array elements.
         /// \pre type() is arrayValue, objectValue, or nullValue

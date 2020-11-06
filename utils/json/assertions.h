@@ -10,7 +10,9 @@
 #include <sstream>
 
 #if !defined(JSON_IS_AMALGAMATION)
+
 #include "config.h"
+
 #endif // if !defined(JSON_IS_AMALGAMATION)
 
 /** It should not be possible for a maliciously designed file to
@@ -21,19 +23,19 @@
 
 // @todo <= add detail about condition in exception
 #define JSON_ASSERT(condition)                                                 \
-  {                                                                            \
+  do {                                                                         \
     if (!(condition)) {                                                        \
       Json::throwLogicError("assert json failed");                             \
     }                                                                          \
-  }
+  } while(0)
 
 #define JSON_FAIL_MESSAGE(message)                                             \
-  {                                                                            \
+  do {                                                                         \
     OStringStream oss;                                                         \
     oss << message;                                                            \
     Json::throwLogicError(oss.str());                                          \
     abort();                                                                   \
-  }
+  } while(0)
 
 #else // JSON_USE_EXCEPTION
 
@@ -52,8 +54,10 @@
 #endif
 
 #define JSON_ASSERT_MESSAGE(condition, message)                                \
-  if (!(condition)) {                                                          \
-    JSON_FAIL_MESSAGE(message);                                                \
-  }
+  do {                                                                         \
+    if (!(condition)) {                                                        \
+      JSON_FAIL_MESSAGE(message);                                              \
+    }                                                                          \
+  } while(0)
 
 #endif // CPPTL_JSON_ASSERTIONS_H_INCLUDED

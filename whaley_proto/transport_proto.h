@@ -14,7 +14,7 @@
 #include "type_proto.h"
 
 //VERSION
-#define COMMON_PROTOCOL_VER      130           //协议版本号
+#define COMMON_PROTOCOL_VER      140           //协议版本号
 
 //COMMAND
 #define COMMON_KEEP_ALIVE_REQ    0x10000020    //全局心跳请求
@@ -31,6 +31,9 @@
 
 #define COMMON_PUSH_MSG_RET      0x10000211    //消息推送通知
 #define COMMON_RECEIPT_MSG_REQ   0x10000212    //消息回执
+
+#define COMMON_SEND_MSG_REQ      0x10000220    //客户端消息发送请求
+#define COMMON_SEND_MSG_RET      0x10000221    //客户端消息发送返回
 
 #define COMMON_EXEC_CMD_REQ      0x10000401    //控制台执行命令请求
 #define COMMON_EXEC_CMD_RET      0x10000403    //终端执行命令结果返回

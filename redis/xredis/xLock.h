@@ -20,70 +20,72 @@
 
 #endif
 
+namespace xrcp {
 
-class xLock {
-private:
+    class xLock {
+    private:
 #ifdef WIN32
-    CRITICAL_SECTION    mSection;
+        CRITICAL_SECTION    mSection;
 #else
-    pthread_mutex_t mMutex;
+        pthread_mutex_t mMutex;
 #endif
 
-public:
-    inline xLock() {
+    public:
+        inline xLock() {
 #ifdef WIN32
-        InitializeCriticalSection(&mSection);
+            InitializeCriticalSection(&mSection);
 #else
-        pthread_mutexattr_t attr;
-        pthread_mutexattr_init(&attr);
-        pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-        int32_t ret = pthread_mutex_init(&mMutex, &attr);
-        if (ret != 0) {
-            printf("pthread_mutex_init error %d \n\r", ret);
+            pthread_mutexattr_t attr;
+            pthread_mutexattr_init(&attr);
+            pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+            int32_t ret = pthread_mutex_init(&mMutex, &attr);
+            if (ret != 0) {
+                printf("pthread_mutex_init error %d \n\r", ret);
+            }
+#endif
+        };
+
+        inline ~xLock() {
+#ifdef WIN32
+            DeleteCriticalSection(&mSection);
+#else
+            pthread_mutex_destroy(&mMutex);
+#endif
         }
+
+        inline void Enter() {
+#ifdef WIN32
+            EnterCriticalSection(&mSection);
+#else
+            pthread_mutex_lock(&mMutex);
 #endif
+        }
+
+        inline void Leave() {
+#ifdef WIN32
+            LeaveCriticalSection(&mSection);
+#else
+            pthread_mutex_unlock(&mMutex);
+#endif
+        };
     };
 
-    inline ~xLock() {
-#ifdef WIN32
-        DeleteCriticalSection(&mSection);
-#else
-        pthread_mutex_destroy(&mMutex);
-#endif
-    }
+    class CLockUser {
+    public:
+        inline CLockUser(xLock& lock) : mlock(lock) {
+            mlock.Enter();
+        };
 
-    inline void Enter() {
-#ifdef WIN32
-        EnterCriticalSection(&mSection);
-#else
-        pthread_mutex_lock(&mMutex);
-#endif
-    }
+        inline  ~CLockUser() {
+            mlock.Leave();
+        }
 
-    inline void Leave() {
-#ifdef WIN32
-        LeaveCriticalSection(&mSection);
-#else
-        pthread_mutex_unlock(&mMutex);
-#endif
+    private:
+        xLock& mlock;
     };
-};
-
-class CLockUser {
-public:
-    inline CLockUser(xLock& lock) : mlock(lock) {
-        mlock.Enter();
-    };
-
-    inline  ~CLockUser() {
-        mlock.Leave();
-    }
-
-private:
-    xLock& mlock;
-};
 
 #define XLOCK(T) CLockUser lock(T)
 
-#endif 
+}
 
+#endif

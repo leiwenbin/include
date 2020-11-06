@@ -29,14 +29,15 @@
 
 #define COMMON_CLIENT_EXCEPTION_REQ     0x10000110    //客户端再上线之前异常连接断开的消息
 
-#define COMMON_RadioMSG_STATUS_REQ       0x10000111    //在线广播消息回执状态码
+#define COMMON_RADIO_MSG_STATUS_REQ     0x10000111    //在线广播消息回执状态码
 
 #define COMMON_CONSLOE_LOGIN_REQ        0x10000301    //CONSOLE控制台服务登录请求
-#define COMMON_CONSLOE_LOGIN_RET        0x10000303    //CONSOLE控制台服务登录返回
+
+#define COMMON_TEST_CONSLOE_LOGIN_REQ   0x10000305    //TEST-CONSOLE控制台服务登录请求
 
 #define COMMON_AGENT_LOST_RET           0x10000501    //AGENT已断开
 
-#define COMMON_SYSTEM_KICK_REQ          0x10000701    //系统踢出终端指令
+#define COMMON_SYSTEM_KICK_RET          0x10000701    //系统踢出终端指令
 
 #define PRODUCT_LENGTH      32
 
