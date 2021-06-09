@@ -116,6 +116,9 @@ namespace Json {
          *  - Number of precision digits for formatting of real values.
          *  - "precisionType": "significant"(default) or "decimal"
          *  - Type of precision for formatting of real values.
+         *  - "emitUTF8": false or true
+         *  - If true, outputs raw UTF8 strings instead of escaping them.
+
 
          *  You can examine 'settings_` yourself
          *  to see the defaults. You can also write and read them just like any
@@ -371,8 +374,8 @@ namespace Json {
         String indentString_;
         unsigned int rightMargin_{74};
         String indentation_;
-        bool addChildValues_ : 1;
-        bool indented_ : 1;
+        bool addChildValues_: 1;
+        bool indented_: 1;
     };
 
 #if defined(_MSC_VER)

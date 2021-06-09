@@ -71,7 +71,7 @@ namespace Json {
     enum {
         /// Constant that specify the size of the buffer that must be passed to
         /// uintToString.
-                uintToStringBufferSize = 3 * sizeof(LargestUInt) + 1
+        uintToStringBufferSize = 3 * sizeof(LargestUInt) + 1
     };
 
 // Defines a char buffer for use with uintToString().
@@ -123,14 +123,17 @@ namespace Json {
  * were to delete zeros in the end of string, but not the last zero before '.'.
  */
     template<typename Iter>
-    Iter fixZerosInTheEnd(Iter begin, Iter end) {
+    Iter fixZerosInTheEnd(Iter begin, Iter end, unsigned int precision) {
         for (; begin != end; --end) {
             if (*(end - 1) != '0') {
                 return end;
             }
             // Don't delete the last zero before the decimal point.
-            if (begin != (end - 1) && *(end - 2) == '.') {
-                return end;
+            if (begin != (end - 1) && begin != (end - 2) && *(end - 2) == '.') {
+                if (precision) {
+                    return end;
+                }
+                return end - 2;
             }
         }
         return end;

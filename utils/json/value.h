@@ -52,7 +52,7 @@
 // be used by...
 #if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 #pragma warning(push)
-#pragma warning(disable : 4251)
+#pragma warning(disable : 4251 4275)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 
 #pragma pack(push, 8)
@@ -126,7 +126,7 @@ namespace Json {
         commentAfterOnSameLine, ///< a comment just after a value on the same line
         commentAfter, ///< a comment on the line after a value (only make sense for
         /// root value)
-                numberOfCommentPlacement
+        numberOfCommentPlacement
     };
 
 /** \brief Type of precision for formatting of real values.
@@ -276,13 +276,13 @@ namespace Json {
 
             CZString(CZString const& other);
 
-            CZString(CZString&& other);
+            CZString(CZString&& other) noexcept;
 
             ~CZString();
 
             CZString& operator=(const CZString& other);
 
-            CZString& operator=(CZString&& other);
+            CZString& operator=(CZString&& other) noexcept;
 
             bool operator<(CZString const& other) const;
 
@@ -301,8 +301,8 @@ namespace Json {
             void swap(CZString& other);
 
             struct StringStorage {
-                unsigned policy_ : 2;
-                unsigned length_ : 30; // 1GB max
+                unsigned policy_: 2;
+                unsigned length_: 30; // 1GB max
             };
 
             char const* cstr_; // actually, a prefixed string, unless policy is noDup
@@ -378,7 +378,7 @@ namespace Json {
 
         Value(const Value& other);
 
-        Value(Value&& other);
+        Value(Value&& other) noexcept;
 
         ~Value();
 
@@ -386,7 +386,7 @@ namespace Json {
         /// #swapPayload().
         Value& operator=(const Value& other);
 
-        Value& operator=(Value&& other);
+        Value& operator=(Value&& other) noexcept;
 
         /// Swap everything.
         void swap(Value& other);
@@ -734,9 +734,9 @@ namespace Json {
 
         struct {
             // Really a ValueType, but types should agree for bitfield packing.
-            unsigned int value_type_ : 8;
+            unsigned int value_type_: 8;
             // Unless allocated_, string_ must be null-terminated.
-            unsigned int allocated_ : 1;
+            unsigned int allocated_: 1;
         } bits_;
 
         class Comments {
@@ -745,11 +745,11 @@ namespace Json {
 
             Comments(const Comments& that);
 
-            Comments(Comments&& that);
+            Comments(Comments&& that) noexcept;
 
             Comments& operator=(const Comments& that);
 
-            Comments& operator=(Comments&& that);
+            Comments& operator=(Comments&& that) noexcept;
 
             bool has(CommentPlacement slot) const;
 
@@ -1016,9 +1016,9 @@ namespace Json {
             return *this;
         }
 
-        reference operator*() const { return deref(); }
+        reference operator*() const { return const_cast<reference>(deref()); }
 
-        pointer operator->() const { return &deref(); }
+        pointer operator->() const { return const_cast<pointer>(&deref()); }
     };
 
 /** \brief Iterator for object and array value.

@@ -92,11 +92,11 @@ namespace xrcp {
     private:
         uint32_t mNodeIndex;
         uint32_t mSliceIndex;
-        string mStrerr;
         int32_t mErrlen;
         xRedisClient* mClient;
         uint32_t mIOtype;
         bool mIOFlag;
+        string mStrerr;
     };
 
     typedef struct _DATA_ITEM_ {
@@ -191,6 +191,8 @@ namespace xrcp {
         bool ConnectRedisCache(RedisNode* redisNodeList, uint32_t redisNodeCount, uint32_t nodeIndex);
 
         bool ConnectRedisCacheWithNodeIndex(RedisNode* redisNodeList, uint32_t nodeCount, uint32_t nodeIndexForce);
+
+        static void SetLogLevel(uint32_t level, void (*emit)(int level, const char* line));
 
     public:
 
